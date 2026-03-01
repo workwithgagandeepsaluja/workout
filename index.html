@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Tracker</title>
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --accent: #2563eb; /* Royal Blue */
+            --radius: 12px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1, h2, h3 { letter-spacing: -0.025em; margin-top: 0; }
+        h1 { font-size: 1.8rem; margin-bottom: 2rem; }
+        h2 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem;}
+
+        .container { display: flex; flex-direction: column; gap: 2rem; }
+        
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Workout Section */
+        .date-header { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem; }
+        .day-badge { 
+            display: inline-block; 
+            padding: 4px 12px; 
+            border-radius: 9999px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            background: #dbeafe;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-divider { border-top: 1px solid #e5e7eb; margin: 1.5rem 0; }
+
+        .exercise-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .exercise-item:last-child { border-bottom: none; }
+        .exercise-name { font-weight: 600; font-size: 1.05rem; }
+        .exercise-meta { 
+            color: var(--accent); 
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            background: #eff6ff;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .mandatory-tag {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .mandatory-block {
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0;
+            padding: 1rem; 
+            border-radius: 8px; 
+            margin-bottom: 1.5rem;
+        }
+
+        /* Rest Day */
+        .rest-day { text-align: center; padding: 3rem 0; color: var(--text-secondary); }
+
+        /* Nutrition Inputs */
+        .input-group { margin-bottom: 1rem; }
+        .input-row { display: flex; gap: 1rem; flex-wrap: wrap;}
+        .input-row > div { flex: 1; min-width: 150px; }
+        
+        label { display: block; font-size: 0.875rem; margin-bottom: 0.5rem; color: var(--text-secondary); font-weight: 500;}
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box; 
+            background: #fff;
+            transition: border-color 0.2s;
+        }
+        input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+        button {
+            background-color: var(--text-primary);
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 0.5rem;
+            transition: opacity 0.2s;
+        }
+        button:hover { opacity: 0.9; }
+
+        /* Results */
+        .result-box {
+            background: #f0f9ff;
+            border: 1px solid #b9e6fe;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none; /* Hidden by default */
+        }
+        .result-box.active { display: block; }
+        .stat-row { display: flex; justify-content: space-between; margin-bottom: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px dashed #b9e6fe; }
+        .stat-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .stat-val { font-weight: 700; color: var(--accent); }
+
+        /* Food Tracker Table */
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
+        th { text-align: left; color: var(--text-secondary); font-weight: 500; padding-bottom: 0.5rem; }
+        td { padding: 0.75rem 0; border-top: 1px solid #f3f4f6; }
+        .total-row { font-weight: 700; border-top: 2px solid #e5e7eb; font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Workout Tracker</h1>
+        </header>
+
+        <section class="card" id="workout-card">
+            <h2>Today's Training</h2>
+            <div id="date-display" class="date-header"></div>
+            <div id="day-badge" class="day-badge"></div>
+
+            <div id="workout-content">
+                <span class="mandatory-tag">Daily Mandatory Circuit</span>
+                <div class="mandatory-block">
+                    <div class="exercise-item">
+                        <span class="exercise-name">Pushups</span>
+                        <span class="exercise-meta">3 Sets x 10</span>
+                    </div>
+                    <div class="exercise-item">
+                        <span class="exercise-name">Squats</span>
+                        <span class="exercise-meta">3 Sets x 20</span>
+                    </div>
+                    <div class="exercise-item">
+                        <span class="exercise-name">Leg Raises</span>
+                        <span class="exercise-meta">3 Sets x 10</span>
+                    </div>
+                    <div class="exercise-item">
+                        <span class="exercise-name">Mountain Climbers</span>
+                        <span class="exercise-meta">3 Sets x 40</span>
+                    </div>
+                    <div class="exercise-item">
+                        <span class="exercise-name">Hollow Holds</span>
+                        <span class="exercise-meta">3 Sets x 30s</span>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <span class="mandatory-tag" id="split-focus">Focus Area</span>
+                <div id="daily-exercises">
+                    </div>
+            </div>
+            
+            <div id="rest-message" class="rest-day" style="display: none;">
+                <h3>Rest & Growth Day</h3>
+                <p>No training today. Focus on hitting your calorie surplus.</p>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Bulking Calculator</h2>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Enter your stats to find your bulking macros.</p>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label>Current Weight (kg)</label>
+                    <input type="number" id="weight" placeholder="e.g. 60">
+                </div>
+                <div class="input-group">
+                    <label>Target Weight (kg)</label>
+                    <input type="number" id="target-weight" placeholder="e.g. 70">
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>Height (cm)</label>
+                    <input type="number" id="height" placeholder="e.g. 175">
+                </div>
+                <div class="input-group">
+                    <label>Age</label>
+                    <input type="number" id="age" placeholder="20">
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Activity Level</label>
+                <select id="activity">
+                    <option value="1.2">Sedentary (Student/Desk Job)</option>
+                    <option value="1.375" selected>Moderate (Training 3-5 days)</option>
+                    <option value="1.55">High (Training 6-7 days)</option>
+                </select>
+            </div>
+            <button onclick="calculateNeeds()">Calculate Bulking Needs</button>
+
+            <div id="needs-result" class="result-box">
+                <div class="stat-row">
+                    <span>Daily Calories (Bulking):</span>
+                    <span class="stat-val" id="cal-result">--</span>
+                </div>
+                <div class="stat-row">
+                    <span>Protein Goal:</span>
+                    <span class="stat-val" id="prot-result">--</span>
+                </div>
+                <div class="stat-row">
+                    <span>Liquid Goal (Water):</span>
+                    <span class="stat-val" id="water-result">--</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Food Log</h2>
+            <div class="input-row">
+                <div class="input-group" style="flex: 2;">
+                    <label>Food Item</label>
+                    <select id="food-select">
+                        <option value="chicken_breast">Chicken Breast (Cooked)</option>
+                        <option value="egg_whole">Whole Egg (1 large)</option>
+                        <option value="egg_white">Egg Whites</option>
+                        <option value="rice_white">White Rice (Cooked)</option>
+                        <option value="roti">Roti / Chapati (1 medium)</option>
+                        <option value="milk">Milk (Toned)</option>
+                        <option value="paneer">Paneer</option>
+                        <option value="oats">Oats (Raw)</option>
+                        <option value="dal">Dal / Lentils (Cooked)</option>
+                        <option value="banana">Banana</option>
+                        <option value="peanut_butter">Peanut Butter</option>
+                        <option value="whey">Whey Protein Scoop</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Amount</label>
+                    <input type="number" id="food-amount" placeholder="g / ml / qty">
+                </div>
+            </div>
+            <button onclick="addFood()">Add Entry</button>
+
+            <table id="food-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Cals</th>
+                        <th>Prot</th>
+                    </tr>
+                </thead>
+                <tbody id="food-list">
+                    </tbody>
+                <tfoot>
+                    <tr class="total-row">
+                        <td>Total</td>
+                        <td></td>
+                        <td id="total-cals">0</td>
+                        <td id="total-prot">0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        // --- DATA: Food Database (Per 1 unit or 100g) ---
+        const foodDB = {
+            chicken_breast: { name: "Chicken Breast", unit: "g", cal: 165, pro: 31 },
+            egg_whole: { name: "Whole Egg", unit: "pc", cal: 72, pro: 6 },
+            egg_white: { name: "Egg Whites", unit: "pc", cal: 17, pro: 3.6 },
+            rice_white: { name: "White Rice (Cooked)", unit: "g", cal: 130, pro: 2.7 },
+            roti: { name: "Roti", unit: "pc", cal: 104, pro: 3 },
+            milk: { name: "Milk", unit: "ml", cal: 60, pro: 3.2 },
+            paneer: { name: "Paneer", unit: "g", cal: 265, pro: 18 },
+            oats: { name: "Oats (Raw)", unit: "g", cal: 389, pro: 16.9 },
+            dal: { name: "Dal (Cooked)", unit: "g", cal: 100, pro: 5 }, 
+            banana: { name: "Banana", unit: "pc", cal: 105, pro: 1.3 },
+            peanut_butter: { name: "Peanut Butter", unit: "g", cal: 588, pro: 25 },
+            whey: { name: "Whey Protein", unit: "pc", cal: 120, pro: 24 }
+        };
+
+        // --- DATA: Workout Schedule (Calisthenics Focus) ---
+        const workouts = {
+            1: { // Monday
+                focus: "Push (Chest/Shoulders/Tri) - Strength Focus",
+                exercises: [
+                    { name: "Pike Pushups (Shoulder focus)", sets: "3 Sets", reps: "8-10 reps" },
+                    { name: "Weighted Pushups (Backpack/Plates)", sets: "3 Sets", reps: "10-12 reps" },
+                    { name: "Overhead Press (Barbell)", sets: "3 Sets", reps: "10-12 reps" },
+                    { name: "Dips (Chair/Bar)", sets: "3 Sets", reps: "Failure" },
+                    { name: "Lateral Raises (2.5kg DBs)", sets: "3 Sets", reps: "15 reps" }
+                ]
+            },
+            2: { // Tuesday
+                focus: "Pull (Back/Biceps) - Width Focus",
+                exercises: [
+                    { name: "Wide Grip Pull-ups", sets: "3 Sets", reps: "Max Reps" },
+                    { name: "Chin-ups (Bicep Focus)", sets: "3 Sets", reps: "Max Reps" },
+                    { name: "Barbell Rows (Underhand Grip)", sets: "3 Sets", reps: "12-15 reps" },
+                    { name: "DB Hammer Curls", sets: "3 Sets", reps: "12 reps" }
+                ]
+            },
+            3: { // Wednesday
+                focus: "Legs - Volume Focus",
+                exercises: [
+                    { name: "Barbell Squats (10kg + Plates)", sets: "4 Sets", reps: "15-20 reps" },
+                    { name: "Bulgarian Split Squats (Hold DBs)", sets: "3 Sets", reps: "10 reps/leg" },
+                    { name: "Romanian Deadlifts (DBs/BB)", sets: "3 Sets", reps: "15 reps" },
+                    { name: "Calf Raises (Single Leg)", sets: "4 Sets", reps: "15 reps/leg" }
+                ]
+            },
+            4: { // Thursday
+                focus: "Push - Hypertrophy (Muscle Building)",
+                exercises: [
+                    { name: "Diamond Pushups (Tricep Focus)", sets: "3 Sets", reps: "12-15 reps" },
+                    { name: "Standard Pushups (Slow Tempo)", sets: "3 Sets", reps: "Failure" },
+                    { name: "Skullcrushers (DB or Barbell)", sets: "3 Sets", reps: "12-15 reps" },
+                    { name: "Front Raises (Plate/DB)", sets: "3 Sets", reps: "15 reps" }
+                ]
+            },
+            5: { // Friday
+                focus: "Pull - Thickness & Detail",
+                exercises: [
+                    { name: "Neutral Grip Pull-ups (or Close Grip)", sets: "3 Sets", reps: "Max Reps" },
+                    { name: "Single Arm DB Rows", sets: "3 Sets", reps: "15 reps/side" },
+                    { name: "Barbell Bicep Curls", sets: "3 Sets", reps: "10-12 reps" },
+                    { name: "Rear Delt Flys (2.5kg DBs)", sets: "3 Sets", reps: "15-20 reps" }
+                ]
+            },
+            6: { // Saturday
+                focus: "Legs & Mobility",
+                exercises: [
+                    { name: "Goblet Squats (Hold heaviest DB)", sets: "4 Sets", reps: "20 reps" },
+                    { name: "Lunges (Walking)", sets: "3 Sets", reps: "20 steps total" },
+                    { name: "Glute Bridges (Weighted)", sets: "3 Sets", reps: "20 reps" }
+                ]
+            },
+            0: { // Sunday
+                focus: "Rest",
+                exercises: [] 
+            }
+        };
+
+        // --- FUNCTIONS ---
+
+        function init() {
+            // Set Date
+            const now = new Date();
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const dayIndex = now.getDay();
+            
+            document.getElementById('date-display').innerText = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            
+            // Render Workout
+            const workout = workouts[dayIndex];
+            
+            if (dayIndex === 0) {
+                // Sunday Rest
+                document.getElementById('workout-content').style.display = 'none';
+                document.getElementById('rest-message').style.display = 'block';
+                document.getElementById('day-badge').innerText = "Active Recovery";
+                document.getElementById('day-badge').style.background = "#f4f4f5";
+                document.getElementById('day-badge').style.color = "#71717a";
+            } else {
+                // Workout Display
+                document.getElementById('day-badge').innerText = workout.focus;
+                document.getElementById('split-focus').innerText = workout.focus;
+                
+                const list = document.getElementById('daily-exercises');
+                workout.exercises.forEach(ex => {
+                    const div = document.createElement('div');
+                    div.className = 'exercise-item';
+                    div.innerHTML = `
+                        <span class="exercise-name">${ex.name}</span>
+                        <span class="exercise-meta">${ex.sets} x ${ex.reps}</span>
+                    `;
+                    list.appendChild(div);
+                });
+            }
+        }
+
+        function calculateNeeds() {
+            const w = parseFloat(document.getElementById('weight').value);
+            const targetW = parseFloat(document.getElementById('target-weight').value);
+            const h = parseFloat(document.getElementById('height').value);
+            const a = parseFloat(document.getElementById('age').value);
+            const act = parseFloat(document.getElementById('activity').value);
+
+            if (!w || !h || !a || !targetW) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Mifflin-St Jeor Equation for BMR
+            let bmr = (10 * w) + (6.25 * h) - (5 * a) + 5; // +5 is for Male (default assumption based on routine)
+
+            // Maintenance Calories
+            let tdee = bmr * act;
+
+            // Bulking Surplus Logic
+            let finalCals = tdee;
+            if (targetW > w) {
+                // Bulking: Add 400-500 surplus
+                finalCals = tdee + 400;
+            } else if (targetW < w) {
+                // Cutting (just in case): Subtract 400
+                finalCals = tdee - 400;
+            }
+
+            // Protein: 2g per kg of bodyweight
+            const protein = Math.round(w * 2.0); 
+            
+            // Water: 35ml per kg
+            const water = (w * 0.035).toFixed(1);
+
+            document.getElementById('cal-result').innerText = `${Math.round(finalCals)} kcal`;
+            document.getElementById('prot-result').innerText = `${protein}g`;
+            document.getElementById('water-result').innerText = `${water} Liters`;
+            
+            document.getElementById('needs-result').classList.add('active');
+        }
+
+        let totalCals = 0;
+        let totalProt = 0;
+
+        function addFood() {
+            const foodKey = document.getElementById('food-select').value;
+            let amount = parseFloat(document.getElementById('food-amount').value);
+            
+            if (!amount) {
+                alert("Please enter an amount.");
+                return;
+            }
+
+            const food = foodDB[foodKey];
+            let cals = 0;
+            let prot = 0;
+
+            if (food.unit === 'g' || food.unit === 'ml') {
+                cals = (food.cal * amount) / 100;
+                prot = (food.pro * amount) / 100;
+            } else {
+                cals = food.cal * amount;
+                prot = food.pro * amount;
+            }
+
+            totalCals += cals;
+            totalProt += prot;
+
+            const tbody = document.getElementById('food-list');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${food.name}</td>
+                <td>${amount} ${food.unit}</td>
+                <td>${Math.round(cals)}</td>
+                <td>${Math.round(prot)}g</td>
+            `;
+            tbody.appendChild(row);
+
+            document.getElementById('total-cals').innerText = Math.round(totalCals);
+            document.getElementById('total-prot').innerText = Math.round(totalProt) + 'g';
+            
+            document.getElementById('food-amount').value = '';
+        }
+
+        init();
+    </script>
+</body>
+</html>
