@@ -313,68 +313,61 @@
             whey: { name: "Whey Protein", unit: "pc", cal: 120, pro: 24 }
         };
 
-        // --- DATA: Workout Schedule (Calisthenics Focus) ---
+        // --- DATA: Elite V-Shape & Mass Routine (High Volume) ---
+        // Rotating A/B Split utilizing strictly chosen high-output movements
         const workouts = {
-            1: { // Monday
-                focus: "Push (Chest/Shoulders/Tri) - Strength Focus",
+            1: { // Monday: Workout A
+                focus: "Workout A: Upper V-Taper & Forearm Thickness",
                 exercises: [
-                    { name: "Pike Pushups (Shoulder focus)", sets: "3 Sets", reps: "8-10 reps" },
-                    { name: "Weighted Pushups (Backpack/Plates)", sets: "3 Sets", reps: "10-12 reps" },
-                    { name: "Overhead Press (Barbell)", sets: "3 Sets", reps: "10-12 reps" },
-                    { name: "Dips (Chair/Bar)", sets: "3 Sets", reps: "Failure" },
-                    { name: "Lateral Raises (2.5kg DBs)", sets: "3 Sets", reps: "15 reps" }
+                    { name: "Wide-Grip Pull-ups (Slow lowering)", sets: "5 Sets", reps: "Failure" },
+                    { name: "3-Second Decline Pushups (Feet elevated)", sets: "5 Sets", reps: "Failure" },
+                    { name: "Strict Lateral Raises (2.5kg or 5kg)", sets: "6 Sets", reps: "15-20 Reps" },
+                    { name: "Barbell Wrist Curl Squeeze (10kg)", sets: "5 Sets", reps: "20-25 Reps (2s Pause)" },
+                    { name: "Reverse DB Curls (2.5kg or 5kg)", sets: "5 Sets", reps: "15 Reps (4s Negative)" }
                 ]
             },
-            2: { // Tuesday
-                focus: "Pull (Back/Biceps) - Width Focus",
+            2: { // Tuesday: Workout B
+                focus: "Workout B: Lower Base & Blocky Abs",
                 exercises: [
-                    { name: "Wide Grip Pull-ups", sets: "3 Sets", reps: "Max Reps" },
-                    { name: "Chin-ups (Bicep Focus)", sets: "3 Sets", reps: "Max Reps" },
-                    { name: "Barbell Rows (Underhand Grip)", sets: "3 Sets", reps: "12-15 reps" },
-                    { name: "DB Hammer Curls", sets: "3 Sets", reps: "12 reps" }
+                    { name: "Deficit Bulgarian Split Squats (5kg DBs)", sets: "5 Sets/Leg", reps: "12 Reps (45° lean)" },
+                    { name: "Deep Paused Goblet Squats (10kg or DBs)", sets: "5 Sets", reps: "15 Reps (3s bottom pause)" },
+                    { name: "Strict Hanging Leg Raises", sets: "5 Sets", reps: "Failure (Zero swing)" }
                 ]
             },
-            3: { // Wednesday
-                focus: "Legs - Volume Focus",
-                exercises: [
-                    { name: "Barbell Squats (10kg + Plates)", sets: "4 Sets", reps: "15-20 reps" },
-                    { name: "Bulgarian Split Squats (Hold DBs)", sets: "3 Sets", reps: "10 reps/leg" },
-                    { name: "Romanian Deadlifts (DBs/BB)", sets: "3 Sets", reps: "15 reps" },
-                    { name: "Calf Raises (Single Leg)", sets: "4 Sets", reps: "15 reps/leg" }
-                ]
-            },
-            4: { // Thursday
-                focus: "Push - Hypertrophy (Muscle Building)",
-                exercises: [
-                    { name: "Diamond Pushups (Tricep Focus)", sets: "3 Sets", reps: "12-15 reps" },
-                    { name: "Standard Pushups (Slow Tempo)", sets: "3 Sets", reps: "Failure" },
-                    { name: "Skullcrushers (DB or Barbell)", sets: "3 Sets", reps: "12-15 reps" },
-                    { name: "Front Raises (Plate/DB)", sets: "3 Sets", reps: "15 reps" }
-                ]
-            },
-            5: { // Friday
-                focus: "Pull - Thickness & Detail",
-                exercises: [
-                    { name: "Neutral Grip Pull-ups (or Close Grip)", sets: "3 Sets", reps: "Max Reps" },
-                    { name: "Single Arm DB Rows", sets: "3 Sets", reps: "15 reps/side" },
-                    { name: "Barbell Bicep Curls", sets: "3 Sets", reps: "10-12 reps" },
-                    { name: "Rear Delt Flys (2.5kg DBs)", sets: "3 Sets", reps: "15-20 reps" }
-                ]
-            },
-            6: { // Saturday
-                focus: "Legs & Mobility",
-                exercises: [
-                    { name: "Goblet Squats (Hold heaviest DB)", sets: "4 Sets", reps: "20 reps" },
-                    { name: "Lunges (Walking)", sets: "3 Sets", reps: "20 steps total" },
-                    { name: "Glute Bridges (Weighted)", sets: "3 Sets", reps: "20 reps" }
-                ]
-            },
-            0: { // Sunday
+            3: { // Wednesday: Recovery
                 focus: "Rest",
-                exercises: [] 
+                exercises: []
+            },
+            4: { // Thursday: Workout A
+                focus: "Workout A: Upper V-Taper & Forearm Thickness",
+                exercises: [
+                    { name: "Wide-Grip Pull-ups (Slow lowering)", sets: "5 Sets", reps: "Failure" },
+                    { name: "3-Second Decline Pushups (Feet elevated)", sets: "5 Sets", reps: "Failure" },
+                    { name: "Strict Lateral Raises (2.5kg or 5kg)", sets: "6 Sets", reps: "15-20 Reps" },
+                    { name: "Barbell Wrist Curl Squeeze (10kg)", sets: "5 Sets", reps: "20-25 Reps (2s Pause)" },
+                    { name: "Reverse DB Curls (2.5kg or 5kg)", sets: "5 Sets", reps: "15 Reps (4s Negative)" }
+                ]
+            },
+            5: { // Friday: Workout B
+                focus: "Workout B: Lower Base & Blocky Abs",
+                exercises: [
+                    { name: "Deficit Bulgarian Split Squats (5kg DBs)", sets: "5 Sets/Leg", reps: "12 Reps (45° lean)" },
+                    { name: "Deep Paused Goblet Squats (10kg or DBs)", sets: "5 Sets", reps: "15 Reps (3s bottom pause)" },
+                    { name: "Strict Hanging Leg Raises", sets: "5 Sets", reps: "Failure (Zero swing)" }
+                ]
+            },
+            6: { // Saturday: Recovery
+                focus: "Rest",
+                exercises: []
+            },
+            0: { // Sunday: Weak Point Training (Optional) or Rest
+                focus: "Optional: V-Taper Touch-up",
+                exercises: [
+                    { name: "Strict Lateral Raises (2.5kg or 5kg)", sets: "4 Sets", reps: "15-20 Reps" },
+                    { name: "Barbell Wrist Curl Squeeze (10kg)", sets: "4 Sets", reps: "20 Reps" }
+                ] 
             }
         };
-
         // --- FUNCTIONS ---
 
         function init() {
