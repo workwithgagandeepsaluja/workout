@@ -365,7 +365,7 @@
 
         // --- FUNCTIONS ---
 
-        function init() {
+      function init() {
             // Set Date
             const now = new Date();
             const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -376,19 +376,23 @@
             // Render Workout
             const workout = workouts[dayIndex];
             
-            if (dayIndex === 0) {
-                // Sunday Rest
+            // THE FIX: Check the database for "Rest" instead of hardcoding Sunday (0)
+            if (workout.focus === "Rest") {
+                // Rest Day Display
                 document.getElementById('workout-content').style.display = 'none';
                 document.getElementById('rest-message').style.display = 'block';
-                document.getElementById('day-badge').innerText = "Active Recovery";
-                document.getElementById('day-badge').style.background = "#f4f4f5";
-                document.getElementById('day-badge').style.color = "#71717a";
+                document.getElementById('day-badge').innerText = "Calorie Storage Day";
+                document.getElementById('day-badge').style.background = "#dbeafe";
+                document.getElementById('day-badge').style.color = "#2563eb";
             } else {
                 // Workout Display
+                document.getElementById('workout-content').style.display = 'block';
+                document.getElementById('rest-message').style.display = 'none';
                 document.getElementById('day-badge').innerText = workout.focus;
-                document.getElementById('split-focus').innerText = workout.focus;
+                document.getElementById('split-focus').innerText = "Working Sets";
                 
                 const list = document.getElementById('daily-exercises');
+                list.innerHTML = ""; // Clear out any old data
                 workout.exercises.forEach(ex => {
                     const div = document.createElement('div');
                     div.className = 'exercise-item';
