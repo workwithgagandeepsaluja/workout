@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Tracker</title>
+    <title>Pure Mass & Weight Tracker</title>
     <style>
         :root {
             --bg-color: #f0f2f5;
@@ -32,7 +32,6 @@
 
         .container { display: flex; flex-direction: column; gap: 2rem; }
         
-        /* Cards */
         .card {
             background: var(--card-bg);
             padding: 1.5rem;
@@ -40,7 +39,6 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        /* Workout Section */
         .date-header { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem; }
         .day-badge { 
             display: inline-block; 
@@ -90,15 +88,15 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Rest Day */
         .rest-day { text-align: center; padding: 3rem 0; color: var(--text-secondary); }
 
-        /* Nutrition Inputs */
         .input-group { margin-bottom: 1rem; }
         .input-row { display: flex; gap: 1rem; flex-wrap: wrap;}
         .input-row > div { flex: 1; min-width: 150px; }
         
         label { display: block; font-size: 0.875rem; margin-bottom: 0.5rem; color: var(--text-secondary); font-weight: 500;}
+        
+        /* Flattened, modern dropdowns and inputs */
         input, select {
             width: 100%;
             padding: 0.75rem;
@@ -106,10 +104,25 @@
             border-radius: 8px;
             font-size: 1rem;
             box-sizing: border-box; 
-            background: #fff;
-            transition: border-color 0.2s;
+            background-color: #fff;
+            color: var(--text-primary);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            appearance: none; 
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            box-shadow: none;
         }
-        input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        
+        /* Custom minimalist arrow for the select dropdown */
+        select {
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 1rem top 50%;
+            background-size: 0.65rem auto;
+            padding-right: 2.5rem;
+        }
+
+        input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
 
         button {
             background-color: var(--text-primary);
@@ -121,65 +134,61 @@
             cursor: pointer;
             width: 100%;
             margin-top: 0.5rem;
-            transition: opacity 0.2s;
+            transition: background-color 0.2s;
         }
-        button:hover { opacity: 0.9; }
+        button:hover { background-color: #374151; }
+        button:disabled { background-color: #e5e7eb; color: #9ca3af; cursor: not-allowed; }
 
-        /* Results */
-        .result-box {
-            background: #f0f9ff;
-            border: 1px solid #b9e6fe;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            display: none; /* Hidden by default */
-        }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
+        th { text-align: left; color: var(--text-secondary); font-weight: 500; padding-bottom: 0.5rem; }
+        td { padding: 0.75rem 0; border-top: 1px solid #f3f4f6; }
+        .total-row { font-weight: 700; border-top: 2px solid #e5e7eb; font-size: 1rem; color: var(--text-primary);}
+
+        .result-box { background: #f0f9ff; border: 1px solid #b9e6fe; padding: 1rem; border-radius: 8px; margin-top: 1rem; display: none; }
         .result-box.active { display: block; }
         .stat-row { display: flex; justify-content: space-between; margin-bottom: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px dashed #b9e6fe; }
         .stat-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .stat-val { font-weight: 700; color: var(--accent); }
 
-        /* Food Tracker Table */
-        table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
-        th { text-align: left; color: var(--text-secondary); font-weight: 500; padding-bottom: 0.5rem; }
-        td { padding: 0.75rem 0; border-top: 1px solid #f3f4f6; }
-        .total-row { font-weight: 700; border-top: 2px solid #e5e7eb; font-size: 1rem; }
+        /* Minimalist Calendar Styles */
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .calendar-header button { width: auto; padding: 0.4rem 0.8rem; margin: 0; background-color: transparent; color: var(--text-primary); border: 1px solid #d1d5db; font-size: 0.875rem;}
+        .calendar-header button:hover { background-color: #f3f4f6; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; margin-top: 1rem;}
+        .calendar-day-header { color: var(--text-secondary); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;}
+        .calendar-day { background: #fff; border: 1px solid #e5e7eb; padding: 0.75rem 0; border-radius: 6px; color: var(--text-primary); font-size: 0.9rem; transition: 0.2s; position: relative;}
+        .calendar-day.completed { background: #eff6ff; border-color: var(--accent); color: var(--accent); font-weight: bold; }
+        .calendar-day.empty { background: transparent; border: none; }
+        .calendar-day.today { border: 2px solid var(--text-primary); }
+        .completed-dot { height: 6px; width: 6px; background-color: var(--accent); border-radius: 50%; display: inline-block; margin-top: 4px; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <h1>Workout Tracker</h1>
+            <h1>Pure Mass & Weight Tracker</h1>
         </header>
 
         <section class="card" id="workout-card">
-            <h2>Today's Training</h2>
+            <h2>Today's Protocol</h2>
             <div id="date-display" class="date-header"></div>
             <div id="day-badge" class="day-badge"></div>
 
             <div id="workout-content">
-                <span class="mandatory-tag">Daily Mandatory Circuit</span>
+                <span class="mandatory-tag">Mass Building Rules</span>
                 <div class="mandatory-block">
                     <div class="exercise-item">
-                        <span class="exercise-name">Pushups</span>
-                        <span class="exercise-meta">3 Sets x 10</span>
+                        <span class="exercise-name">Intensity</span>
+                        <span class="exercise-meta">Absolute Muscle Failure</span>
                     </div>
                     <div class="exercise-item">
-                        <span class="exercise-name">Squats</span>
-                        <span class="exercise-meta">3 Sets x 20</span>
+                        <span class="exercise-name">Creatine Target</span>
+                        <span class="exercise-meta">10-20g (Load) or 5g (Maint)</span>
                     </div>
                     <div class="exercise-item">
-                        <span class="exercise-name">Leg Raises</span>
-                        <span class="exercise-meta">3 Sets x 10</span>
-                    </div>
-                    <div class="exercise-item">
-                        <span class="exercise-name">Mountain Climbers</span>
-                        <span class="exercise-meta">3 Sets x 40</span>
-                    </div>
-                    <div class="exercise-item">
-                        <span class="exercise-name">Hollow Holds</span>
-                        <span class="exercise-meta">3 Sets x 30s</span>
+                        <span class="exercise-name">Hydration</span>
+                        <span class="exercise-meta">4 Liters Minimum</span>
                     </div>
                 </div>
 
@@ -188,87 +197,63 @@
                 <span class="mandatory-tag" id="split-focus">Focus Area</span>
                 <div id="daily-exercises">
                     </div>
+                
+                <button id="complete-btn" onclick="markWorkoutComplete()">Mark Workout Complete ✅</button>
             </div>
             
             <div id="rest-message" class="rest-day" style="display: none;">
-                <h3>Rest & Growth Day</h3>
-                <p>No training today. Focus on hitting your calorie surplus.</p>
-            </div>
-        </section>
-
-        <section class="card">
-            <h2>Bulking Calculator</h2>
-            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Enter your stats to find your bulking macros.</p>
-            
-            <div class="input-row">
-                <div class="input-group">
-                    <label>Current Weight (kg)</label>
-                    <input type="number" id="weight" placeholder="e.g. 60">
-                </div>
-                <div class="input-group">
-                    <label>Target Weight (kg)</label>
-                    <input type="number" id="target-weight" placeholder="e.g. 70">
-                </div>
-            </div>
-            <div class="input-row">
-                <div class="input-group">
-                    <label>Height (cm)</label>
-                    <input type="number" id="height" placeholder="e.g. 175">
-                </div>
-                <div class="input-group">
-                    <label>Age</label>
-                    <input type="number" id="age" placeholder="20">
-                </div>
-            </div>
-            <div class="input-group">
-                <label>Activity Level</label>
-                <select id="activity">
-                    <option value="1.2">Sedentary (Student/Desk Job)</option>
-                    <option value="1.375" selected>Moderate (Training 3-5 days)</option>
-                    <option value="1.55">High (Training 6-7 days)</option>
-                </select>
-            </div>
-            <button onclick="calculateNeeds()">Calculate Bulking Needs</button>
-
-            <div id="needs-result" class="result-box">
-                <div class="stat-row">
-                    <span>Daily Calories (Bulking):</span>
-                    <span class="stat-val" id="cal-result">--</span>
-                </div>
-                <div class="stat-row">
-                    <span>Protein Goal:</span>
-                    <span class="stat-val" id="prot-result">--</span>
-                </div>
-                <div class="stat-row">
-                    <span>Liquid Goal (Water):</span>
-                    <span class="stat-val" id="water-result">--</span>
+                <h3>Calorie Storage Day</h3>
+                <p>No lifting. Do not burn calories today. Eat your surplus and let the body grow.</p>
+                
+                <div class="section-divider"></div>
+                <div style="text-align: left; padding: 1rem; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    <label style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.5rem;">Make up a missed workout:</label>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0; margin-bottom: 1rem;">Select a workout below to load it for today.</p>
+                    <select id="makeup-select" onchange="loadMakeupWorkout()">
+                        <option value="">-- Select Missed Workout --</option>
+                        <option value="2">Upper A: Chest, Shoulders, Forearms & Abs</option>
+                        <option value="4">Lower A: Thick Thighs & Glute Focus</option>
+                        <option value="5">Upper B: V-Taper, Outer Forearm & Deep Core</option>
+                        <option value="0">Lower B: Hamstrings, Quads & Glutes</option>
+                    </select>
                 </div>
             </div>
         </section>
 
         <section class="card">
-            <h2>Food Log</h2>
+            <h2>Workout History</h2>
+            <div class="calendar-header">
+                <button onclick="changeMonth(-1)">&#8592; Prev</button>
+                <h3 id="cal-month-year" style="margin: 0; font-size: 1.1rem;"></h3>
+                <button onclick="changeMonth(1)">Next &#8594;</button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+                </div>
+        </section>
+
+        <section class="card">
+            <h2>Budget Mass Food Log</h2>
             <div class="input-row">
                 <div class="input-group" style="flex: 2;">
-                    <label>Food Item</label>
+                    <label>Dairy-Free Meals & Ingredients</label>
                     <select id="food-select">
-                        <option value="chicken_breast">Chicken Breast (Cooked)</option>
-                        <option value="egg_whole">Whole Egg (1 large)</option>
-                        <option value="egg_white">Egg Whites</option>
-                        <option value="rice_white">White Rice (Cooked)</option>
-                        <option value="roti">Roti / Chapati (1 medium)</option>
-                        <option value="milk">Milk (Toned)</option>
-                        <option value="paneer">Paneer</option>
-                        <option value="oats">Oats (Raw)</option>
-                        <option value="dal">Dal / Lentils (Cooked)</option>
-                        <option value="banana">Banana</option>
-                        <option value="peanut_butter">Peanut Butter</option>
-                        <option value="whey">Whey Protein Scoop</option>
+                        <option value="pb_shake">The 900-Cal Vegan PB Shake</option>
+                        <option value="chana_aloo">Meal: Kala Chana + Aloo + Oil</option>
+                        <option value="soya_rice">Meal: Soya Chunks (50g) + White Rice</option>
+                        <option disabled>──────────</option>
+                        <option value="soya">Soya Chunks (50g dry)</option>
+                        <option value="chana">Kala Chana (1 bowl boiled)</option>
+                        <option value="peanut_butter">Peanut Butter (1 Tbsp)</option>
+                        <option value="rice">White Rice (1 Cup Cooked)</option>
+                        <option value="banana">Banana (1 medium)</option>
+                        <option value="potato">Boiled Potato (1 medium)</option>
+                        <option value="oil">Mustard/Olive Oil (1 Tbsp)</option>
+                        <option value="eggs">Boiled Eggs (3 whole)</option>
                     </select>
                 </div>
                 <div class="input-group">
-                    <label>Amount</label>
-                    <input type="number" id="food-amount" placeholder="g / ml / qty">
+                    <label>Quantity</label>
+                    <input type="number" id="food-amount" value="1">
                 </div>
             </div>
             <button onclick="addFood()">Add Entry</button>
@@ -294,117 +279,220 @@
                 </tfoot>
             </table>
         </section>
+
+        <section class="card">
+            <h2>Bulking Calculator</h2>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>Current Weight (kg)</label>
+                    <input type="number" id="weight" value="49">
+                </div>
+                <div class="input-group">
+                    <label>Target Weight (kg)</label>
+                    <input type="number" id="target-weight" value="60">
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>Height (cm)</label>
+                    <input type="number" id="height" value="180">
+                </div>
+                <div class="input-group">
+                    <label>Age</label>
+                    <input type="number" id="age" value="20">
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Activity Level</label>
+                <select id="activity">
+                    <option value="1.2">Sedentary (Student/Desk Job)</option>
+                    <option value="1.375" selected>Moderate (Training 3-4 days)</option>
+                    <option value="1.55">High (Training 6-7 days)</option>
+                </select>
+            </div>
+            <button onclick="calculateNeeds()">Calculate Bulking Needs</button>
+
+            <div id="needs-result" class="result-box">
+                <div class="stat-row">
+                    <span>Daily Calories (Surplus):</span>
+                    <span class="stat-val" id="cal-result">--</span>
+                </div>
+                <div class="stat-row">
+                    <span>Protein Goal:</span>
+                    <span class="stat-val" id="prot-result">--</span>
+                </div>
+                <div class="stat-row">
+                    <span>Liquid Goal (Water):</span>
+                    <span class="stat-val" id="water-result">--</span>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script>
-        // --- DATA: Food Database (Per 1 unit or 100g) ---
+        // --- GOOGLE SHEETS SETUP (Replace URL once created) ---
+        const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APP_SCRIPT_URL_HERE";
+
+        // --- DATA: Database ---
         const foodDB = {
-            chicken_breast: { name: "Chicken Breast", unit: "g", cal: 165, pro: 31 },
-            egg_whole: { name: "Whole Egg", unit: "pc", cal: 72, pro: 6 },
-            egg_white: { name: "Egg Whites", unit: "pc", cal: 17, pro: 3.6 },
-            rice_white: { name: "White Rice (Cooked)", unit: "g", cal: 130, pro: 2.7 },
-            roti: { name: "Roti", unit: "pc", cal: 104, pro: 3 },
-            milk: { name: "Milk", unit: "ml", cal: 60, pro: 3.2 },
-            paneer: { name: "Paneer", unit: "g", cal: 265, pro: 18 },
-            oats: { name: "Oats (Raw)", unit: "g", cal: 389, pro: 16.9 },
-            dal: { name: "Dal (Cooked)", unit: "g", cal: 100, pro: 5 }, 
+            pb_shake: { name: "900-Cal Vegan Shake", unit: "batch", cal: 900, pro: 25 },
+            chana_aloo: { name: "Chana + Aloo + Oil", unit: "meal", cal: 450, pro: 15 },
+            soya_rice: { name: "Soya Chunks + Rice", unit: "meal", cal: 600, pro: 30 },
+            soya: { name: "Soya Chunks", unit: "x50g", cal: 170, pro: 26 },
+            chana: { name: "Kala Chana", unit: "bowl", cal: 200, pro: 10 },
+            peanut_butter: { name: "Peanut Butter", unit: "tbsp", cal: 95, pro: 4 },
+            rice: { name: "White Rice", unit: "cup", cal: 200, pro: 4 },
             banana: { name: "Banana", unit: "pc", cal: 105, pro: 1.3 },
-            peanut_butter: { name: "Peanut Butter", unit: "g", cal: 588, pro: 25 },
-            whey: { name: "Whey Protein", unit: "pc", cal: 120, pro: 24 }
+            potato: { name: "Boiled Potato", unit: "pc", cal: 130, pro: 3 },
+            oil: { name: "Cooking Oil", unit: "tbsp", cal: 120, pro: 0 },
+            eggs: { name: "Boiled Eggs", unit: "x3", cal: 210, pro: 18 }
         };
 
-        // --- DATA: Elite V-Shape & Mass Routine (High Volume) ---
-        // Rotating A/B Split utilizing strictly chosen high-output movements
-         const workouts = {
-            1: { // Monday
-                focus: "Rest",
-                exercises: []
-            },
-            2: { // Tuesday
-                focus: "Upper A: Chest, Shoulders, Forearms & Blocky Abs",
-                exercises: [
-                    { name: "Decline Pushups (Drop to regular on fail)", sets: "3 Sets", reps: "Absolute Failure" },
-                    { name: "Seated DB Overhead Press (10kg DBs)", sets: "3 Sets", reps: "Absolute Failure" },
-                    { name: "DB Wrist Curls (10kg DBs)", sets: "3 Sets", reps: "Absolute Failure" },
-                    { name: "Weighted Crunches (Hold 10kg DB)", sets: "3 Sets", reps: "Absolute Failure" }
-                ]
-            },
-            3: { // Wednesday
-                focus: "Rest",
-                exercises: []
-            },
-            4: { // Thursday
-                focus: "Lower A: Thick Thighs & Glute Focus",
-                exercises: [
-                    { name: "DB Sumo Squats (Hold 10kg DBs)", sets: "3 Sets", reps: "Absolute Failure" },
-                    { name: "Weighted Glute Bridges (Hold 10kg DBs)", sets: "3 Sets", reps: "Absolute Failure" }
-                ]
-            },
-            5: { // Friday
-                focus: "Upper B: V-Taper, Outer Forearm & Deep Core",
-                exercises: [
-                    { name: "Wide-Grip Pull-ups", sets: "3 Sets", reps: "Absolute Failure" },
-                    { name: "Seated DB Lateral Raises (2.5kg DBs)", sets: "3 Sets", reps: "Absolute Failure" },
-                    { name: "DB Reverse Curls (2.5kg DBs)", sets: "3 Sets", reps: "Absolute Failure" },
-                    { name: "Strict Hanging Leg Raises", sets: "3 Sets", reps: "Absolute Failure" }
-                ]
-            },
-            6: { // Saturday
-                focus: "Rest",
-                exercises: []
-            },
-            0: { // Sunday
-                focus: "Lower B: Hamstrings, Quads & Glutes",
-                exercises: [
-                    { name: "DB Romanian Deadlifts (Hold 10kg DBs)", sets: "3 Sets", reps: "Absolute Failure" },
-                    { name: "Goblet Squats (Hold one 10kg DB)", sets: "3 Sets", reps: "Absolute Failure" },
-                    { name: "Weighted Glute Bridges (Hold 10kg DBs)", sets: "2 Sets", reps: "Absolute Failure" }
-                ] 
-            }
+        const workouts = {
+            1: { focus: "Rest", exercises: [] },
+            2: { focus: "Upper A: Chest, Shoulders, Forearms & Blocky Abs", exercises: [ { name: "Decline Pushups", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Seated DB Overhead Press (10kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "DB Wrist Curls (10kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Weighted Crunches (Hold 10kg)", sets: "3 Sets", reps: "Absolute Failure" } ] },
+            3: { focus: "Rest", exercises: [] },
+            4: { focus: "Lower A: Thick Thighs & Glute Focus", exercises: [ { name: "DB Sumo Squats (Hold 10kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Weighted Glute Bridges (Hold 10kg)", sets: "3 Sets", reps: "Absolute Failure" } ] },
+            5: { focus: "Upper B: V-Taper, Outer Forearm & Deep Core", exercises: [ { name: "Wide-Grip Pull-ups", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Seated DB Lateral Raises (2.5kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "DB Reverse Curls (2.5kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Strict Hanging Leg Raises", sets: "3 Sets", reps: "Absolute Failure" } ] },
+            6: { focus: "Rest", exercises: [] },
+            0: { focus: "Lower B: Hamstrings, Quads & Glutes", exercises: [ { name: "DB Romanian Deadlifts (Hold 10kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Goblet Squats (Hold one 10kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Weighted Glute Bridges (Hold 10kg)", sets: "2 Sets", reps: "Absolute Failure" } ] }
         };
 
-        // --- FUNCTIONS ---
+        // --- STATE VARIABLES ---
+        let currentDate = new Date();
+        let calMonth = currentDate.getMonth();
+        let calYear = currentDate.getFullYear();
+        let activeWorkoutName = ""; 
+        let workoutHistory = JSON.parse(localStorage.getItem('massWorkoutHistory')) || {};
 
-      function init() {
-            // Set Date
-            const now = new Date();
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const dayIndex = now.getDay();
+        // --- INIT & WORKOUT LOGIC ---
+        function init() {
+            renderTodayWorkout(currentDate.getDay());
+            renderCalendar();
+        }
+
+        function renderTodayWorkout(dayIndex) {
+            document.getElementById('date-display').innerText = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             
-            document.getElementById('date-display').innerText = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            
-            // Render Workout
             const workout = workouts[dayIndex];
+            activeWorkoutName = workout.focus;
+
+            // Check if today is already completed
+            const todayStr = getLocalDateString(currentDate);
+            const btn = document.getElementById('complete-btn');
+
+            if (workoutHistory[todayStr]) {
+                btn.innerText = "Workout Completed ✅";
+                btn.disabled = true;
+            } else {
+                btn.innerText = "Mark Workout Complete ✅";
+                btn.disabled = false;
+            }
             
-            // THE FIX: Check the database for "Rest" instead of hardcoding Sunday (0)
             if (workout.focus === "Rest") {
-                // Rest Day Display
                 document.getElementById('workout-content').style.display = 'none';
                 document.getElementById('rest-message').style.display = 'block';
                 document.getElementById('day-badge').innerText = "Calorie Storage Day";
-                document.getElementById('day-badge').style.background = "#dbeafe";
-                document.getElementById('day-badge').style.color = "#2563eb";
+                document.getElementById('day-badge').style.background = "#f4f4f5";
+                document.getElementById('day-badge').style.color = "#71717a";
             } else {
-                // Workout Display
                 document.getElementById('workout-content').style.display = 'block';
                 document.getElementById('rest-message').style.display = 'none';
                 document.getElementById('day-badge').innerText = workout.focus;
+                document.getElementById('day-badge').style.background = "#dbeafe";
+                document.getElementById('day-badge').style.color = "var(--accent)";
                 document.getElementById('split-focus').innerText = "Working Sets";
                 
                 const list = document.getElementById('daily-exercises');
-                list.innerHTML = ""; // Clear out any old data
+                list.innerHTML = ""; 
                 workout.exercises.forEach(ex => {
                     const div = document.createElement('div');
                     div.className = 'exercise-item';
-                    div.innerHTML = `
-                        <span class="exercise-name">${ex.name}</span>
-                        <span class="exercise-meta">${ex.sets} x ${ex.reps}</span>
-                    `;
+                    div.innerHTML = `<span class="exercise-name">${ex.name}</span><span class="exercise-meta">${ex.sets} x ${ex.reps}</span>`;
                     list.appendChild(div);
                 });
             }
         }
 
+        function loadMakeupWorkout() {
+            const select = document.getElementById('makeup-select');
+            if(select.value !== "") {
+                renderTodayWorkout(parseInt(select.value));
+            }
+        }
+
+        function getLocalDateString(date) {
+            const tzoffset = date.getTimezoneOffset() * 60000;
+            return (new Date(date - tzoffset)).toISOString().split('T')[0];
+        }
+
+        // --- MARK COMPLETE & GOOGLE SHEETS SYNC ---
+        function markWorkoutComplete() {
+            const todayStr = getLocalDateString(currentDate);
+            
+            // Save locally
+            workoutHistory[todayStr] = activeWorkoutName;
+            localStorage.setItem('massWorkoutHistory', JSON.stringify(workoutHistory));
+            
+            // Update UI
+            const btn = document.getElementById('complete-btn');
+            btn.innerText = "Workout Completed ✅";
+            btn.disabled = true;
+            renderCalendar(); // Refresh calendar to show the dot
+
+            // Send to Google Sheets
+            if(GOOGLE_SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbw7ore0NXBgY8WQHdT15_WfBb2It9GyjdVLhueZ-BTNTsd8It5bLtWXoNsmQ44b-6iY/exec") {
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ date: todayStr, workout: activeWorkoutName })
+                }).catch(err => console.log('Google Sheets sync error:', err));
+            }
+        }
+
+        // --- CALENDAR LOGIC ---
+        function renderCalendar() {
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            document.getElementById('cal-month-year').innerText = `${monthNames[calMonth]} ${calYear}`;
+            
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = `
+                <div class="calendar-day-header">Sun</div><div class="calendar-day-header">Mon</div><div class="calendar-day-header">Tue</div>
+                <div class="calendar-day-header">Wed</div><div class="calendar-day-header">Thu</div><div class="calendar-day-header">Fri</div><div class="calendar-day-header">Sat</div>
+            `;
+
+            const firstDay = new Date(calYear, calMonth, 1).getDay();
+            const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+            const todayStr = getLocalDateString(new Date());
+
+            // Empty slots before 1st of month
+            for (let i = 0; i < firstDay; i++) {
+                grid.innerHTML += `<div class="calendar-day empty"></div>`;
+            }
+
+            for (let i = 1; i <= daysInMonth; i++) {
+                let d = new Date(calYear, calMonth, i);
+                let dateStr = getLocalDateString(d);
+                
+                let isCompleted = workoutHistory[dateStr] ? true : false;
+                let isToday = (dateStr === todayStr) ? "today" : "";
+                let completedClass = isCompleted ? "completed" : "";
+                
+                let dot = isCompleted ? `<br><span class="completed-dot"></span>` : "";
+
+                grid.innerHTML += `<div class="calendar-day ${isToday} ${completedClass}">${i}${dot}</div>`;
+            }
+        }
+
+        function changeMonth(dir) {
+            calMonth += dir;
+            if (calMonth < 0) { calMonth = 11; calYear--; }
+            else if (calMonth > 11) { calMonth = 0; calYear++; }
+            renderCalendar();
+        }
+
+        // --- EXISTING CALCULATORS & FOOD LOG ---
         function calculateNeeds() {
             const w = parseFloat(document.getElementById('weight').value);
             const targetW = parseFloat(document.getElementById('target-weight').value);
@@ -412,81 +500,40 @@
             const a = parseFloat(document.getElementById('age').value);
             const act = parseFloat(document.getElementById('activity').value);
 
-            if (!w || !h || !a || !targetW) {
-                alert("Please fill in all fields.");
-                return;
-            }
-
-            // Mifflin-St Jeor Equation for BMR
-            let bmr = (10 * w) + (6.25 * h) - (5 * a) + 5; // +5 is for Male (default assumption based on routine)
-
-            // Maintenance Calories
+            if (!w || !h || !a || !targetW) { alert("Please fill in all fields."); return; }
+            let bmr = (10 * w) + (6.25 * h) - (5 * a) + 5; 
             let tdee = bmr * act;
-
-            // Bulking Surplus Logic
-            let finalCals = tdee;
-            if (targetW > w) {
-                // Bulking: Add 400-500 surplus
-                finalCals = tdee + 400;
-            } else if (targetW < w) {
-                // Cutting (just in case): Subtract 400
-                finalCals = tdee - 400;
-            }
-
-            // Protein: 2g per kg of bodyweight
-            const protein = Math.round(w * 2.0); 
-            
-            // Water: 35ml per kg
-            const water = (w * 0.035).toFixed(1);
+            let finalCals = tdee + 500;
+            const protein = Math.round(w * 2.2); 
+            const water = ((w * 0.035) + 1.0).toFixed(1);
 
             document.getElementById('cal-result').innerText = `${Math.round(finalCals)} kcal`;
-            document.getElementById('prot-result').innerText = `${protein}g`;
+            document.getElementById('prot-result').innerText = `${protein}g minimum`;
             document.getElementById('water-result').innerText = `${water} Liters`;
-            
             document.getElementById('needs-result').classList.add('active');
         }
 
         let totalCals = 0;
         let totalProt = 0;
-
         function addFood() {
             const foodKey = document.getElementById('food-select').value;
             let amount = parseFloat(document.getElementById('food-amount').value);
-            
-            if (!amount) {
-                alert("Please enter an amount.");
-                return;
-            }
+            if (!amount) return;
 
             const food = foodDB[foodKey];
-            let cals = 0;
-            let prot = 0;
-
-            if (food.unit === 'g' || food.unit === 'ml') {
-                cals = (food.cal * amount) / 100;
-                prot = (food.pro * amount) / 100;
-            } else {
-                cals = food.cal * amount;
-                prot = food.pro * amount;
-            }
-
+            let cals = food.cal * amount;
+            let prot = food.pro * amount;
             totalCals += cals;
             totalProt += prot;
 
             const tbody = document.getElementById('food-list');
             const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${food.name}</td>
-                <td>${amount} ${food.unit}</td>
-                <td>${Math.round(cals)}</td>
-                <td>${Math.round(prot)}g</td>
-            `;
+            row.innerHTML = `<td>${food.name}</td><td>${amount} ${food.unit}</td><td>${Math.round(cals)}</td><td>${Math.round(prot)}g</td>`;
             tbody.appendChild(row);
 
             document.getElementById('total-cals').innerText = Math.round(totalCals);
             document.getElementById('total-prot').innerText = Math.round(totalProt) + 'g';
-            
-            document.getElementById('food-amount').value = '';
+            document.getElementById('food-amount').value = '1';
         }
 
         init();
