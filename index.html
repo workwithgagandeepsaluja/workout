@@ -200,24 +200,6 @@
                 
                 <button id="complete-btn" onclick="markWorkoutComplete()">Mark Workout Complete ✅</button>
             </div>
-            
-            <div id="rest-message" class="rest-day" style="display: none;">
-                <h3>Calorie Storage Day</h3>
-                <p>No lifting. Do not burn calories today. Eat your surplus and let the body grow.</p>
-                
-                <div class="section-divider"></div>
-                <div style="text-align: left; padding: 1rem; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-                    <label style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.5rem;">Make up a missed workout:</label>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0; margin-bottom: 1rem;">Select a workout below to load it for today.</p>
-                    <select id="makeup-select" onchange="loadMakeupWorkout()">
-                        <option value="">-- Select Missed Workout --</option>
-                        <option value="2">Upper A: Chest, Shoulders, Forearms & Abs</option>
-                        <option value="4">Lower A: Thick Thighs & Glute Focus</option>
-                        <option value="5">Upper B: V-Taper, Outer Forearm & Deep Core</option>
-                        <option value="0">Lower B: Hamstrings, Quads & Glutes</option>
-                    </select>
-                </div>
-            </div>
         </section>
 
         <section class="card">
@@ -268,7 +250,8 @@
                     </tr>
                 </thead>
                 <tbody id="food-list">
-                    </tbody>
+                    <!-- Items appended here -->
+                </tbody>
                 <tfoot>
                     <tr class="total-row">
                         <td>Total</td>
@@ -331,7 +314,7 @@
 
     <script>
         // --- GOOGLE SHEETS SETUP (Replace URL once created) ---
-        const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APP_SCRIPT_URL_HERE";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxxSZ78Zvy4f6bVm9tZpjYetIN3DvVCeSTpHpZxNhePnd_OS8g2IW5aPNB4PhfhLOn/exec";
 
         // --- DATA: Database ---
         const foodDB = {
@@ -348,76 +331,144 @@
             eggs: { name: "Boiled Eggs", unit: "x3", cal: 210, pro: 18 }
         };
 
-        const workouts = {
-            1: { focus: "Rest", exercises: [] },
-            2: { focus: "Upper A: Chest, Shoulders, Forearms & Blocky Abs", exercises: [ { name: "Decline Pushups", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Seated DB Overhead Press (10kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "DB Wrist Curls (10kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Weighted Crunches (Hold 10kg)", sets: "3 Sets", reps: "Absolute Failure" } ] },
-            3: { focus: "Rest", exercises: [] },
-            4: { focus: "Lower A: Thick Thighs & Glute Focus", exercises: [ { name: "DB Sumo Squats (Hold 10kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Weighted Glute Bridges (Hold 10kg)", sets: "3 Sets", reps: "Absolute Failure" } ] },
-            5: { focus: "Upper B: V-Taper, Outer Forearm & Deep Core", exercises: [ { name: "Wide-Grip Pull-ups", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Seated DB Lateral Raises (2.5kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "DB Reverse Curls (2.5kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Strict Hanging Leg Raises", sets: "3 Sets", reps: "Absolute Failure" } ] },
-            6: { focus: "Rest", exercises: [] },
-            0: { focus: "Lower B: Hamstrings, Quads & Glutes", exercises: [ { name: "DB Romanian Deadlifts (Hold 10kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Goblet Squats (Hold one 10kg)", sets: "3 Sets", reps: "Absolute Failure" }, { name: "Weighted Glute Bridges (Hold 10kg)", sets: "2 Sets", reps: "Absolute Failure" } ] }
-        };
+        // --- NEW WORKOUT PLAN (Strictly Sequential) ---
+        const workouts = [
+            {
+                name: "Day 1", focus: "Chest & Triceps",
+                exercises: [
+                    { name: "Barbell Bench Press", sets: "3 Sets", reps: "8-12" },
+                    { name: "Dumbbell Incline - Angle Pushup", sets: "3 Sets", reps: "8-12" },
+                    { name: "Dumbbell Flat Flyes", sets: "3 Sets", reps: "8-12" },
+                    { name: "Barbell Skull Crushers", sets: "3 Sets", reps: "8-12" },
+                    { name: "Dumbbell Overhead Tricep Extention", sets: "3 Sets", reps: "8-12" },
+                    { name: "Close Grip Bench Press", sets: "3 Sets", reps: "8-12" }
+                ]
+            },
+            {
+                name: "Day 2", focus: "Back & Biceps",
+                exercises: [
+                    { name: "Pull-ups", sets: "3 Sets", reps: "8-12" },
+                    { name: "Barbell Bent - Over Rows", sets: "3 Sets", reps: "8-12" },
+                    { name: "Dumbbell Pullovers", sets: "3 Sets", reps: "8-12" },
+                    { name: "Strict Barbell Curls", sets: "3 Sets", reps: "8-12" },
+                    { name: "Dumbbell Hammer Curls", sets: "3 Sets", reps: "8-12" },
+                    { name: "Deadlift", sets: "3 Sets", reps: "8-12" },
+                    { name: "Preacher Curl", sets: "3 Sets", reps: "8-12" },
+                    { name: "Dumbbell Curls", sets: "3 Sets", reps: "8-12" }
+                ]
+            },
+            {
+                name: "Day 3", focus: "Shoulders & Legs",
+                exercises: [
+                    { name: "Barbell Overhead Press (Military Press)", sets: "3 Sets", reps: "8-12" },
+                    { name: "Barbell Pause Squats", sets: "3 Sets", reps: "8-12" },
+                    { name: "Dumbbell Lateral Raises", sets: "3 Sets", reps: "8-12" },
+                    { name: "Goblet Squats", sets: "3 Sets", reps: "8-12" },
+                    { name: "Hanging Leg Raise", sets: "3 Sets", reps: "8-12" },
+                    { name: "Front Raise", sets: "3 Sets", reps: "8-12" },
+                    { name: "Heavy Squats", sets: "3 Sets", reps: "8-12" }
+                ]
+            },
+            {
+                name: "Day 4", focus: "Triceps & Chest",
+                exercises: [
+                    { name: "Close-Grip barbell Bench Press", sets: "3 Sets", reps: "8-12" },
+                    { name: "Dumbbell Tricep Kickbacks", sets: "3 Sets", reps: "8-12" },
+                    { name: "Deficit Push ups (Dificit Push ups)", sets: "3 Sets", reps: "8-12" },
+                    { name: "Dumbbell Floor Press", sets: "3 Sets", reps: "8-12" },
+                    { name: "Dumbbell Fly", sets: "3 Sets", reps: "8-12" }
+                ]
+            },
+            {
+                name: "Day 5", focus: "Biceps & Back",
+                exercises: [
+                    { name: "Underhand Chin-ups", sets: "3 Sets", reps: "8-12" },
+                    { name: "Dumbbell Concentration Curls", sets: "3 Sets", reps: "8-12" },
+                    { name: "Barbell Reverse Curls", sets: "3 Sets", reps: "8-12" },
+                    { name: "Barbell Shrugs", sets: "3 Sets", reps: "8-12" },
+                    { name: "Barbell Bent Over Row", sets: "3 Sets", reps: "8-12" },
+                    { name: "Preacher Curl", sets: "3 Sets", reps: "8-12" }
+                ]
+            },
+            {
+                name: "Day 6", focus: "Leg & Shoulder",
+                exercises: [
+                    { name: "Barbell Romanian Deadlifts", sets: "3 Sets", reps: "8-12" },
+                    { name: "Barbell Front Squats", sets: "3 Sets", reps: "8-12" },
+                    { name: "Barbell Upright Rows", sets: "3 Sets", reps: "8-12" },
+                    { name: "Dumbbell Arnold Press", sets: "3 Sets", reps: "8-12" },
+                    { name: "Rear Delt Fly", sets: "3 Sets", reps: "8-12" },
+                    { name: "Lateral Raise", sets: "3 Sets", reps: "8-12" },
+                    { name: "Overhead Press", sets: "3 Sets", reps: "8-12" }
+                ]
+            }
+        ];
 
         // --- STATE VARIABLES ---
         let currentDate = new Date();
         let calMonth = currentDate.getMonth();
         let calYear = currentDate.getFullYear();
+        let currentWorkoutIndex = parseInt(localStorage.getItem('massWorkoutIndex')) || 0;
         let activeWorkoutName = ""; 
+        let activeWorkoutFocus = "";
         let workoutHistory = JSON.parse(localStorage.getItem('massWorkoutHistory')) || {};
 
         // --- INIT & WORKOUT LOGIC ---
         function init() {
-            renderTodayWorkout(currentDate.getDay());
+            renderTodayWorkout();
             renderCalendar();
         }
 
-        function renderTodayWorkout(dayIndex) {
+        function renderTodayWorkout() {
             document.getElementById('date-display').innerText = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             
-            const workout = workouts[dayIndex];
-            activeWorkoutName = workout.focus;
-
-            // Check if today is already completed
             const todayStr = getLocalDateString(currentDate);
             const btn = document.getElementById('complete-btn');
 
             if (workoutHistory[todayStr]) {
-                btn.innerText = "Workout Completed ✅";
+                // If a workout is already logged today, show a completion state and prep for tomorrow.
+                const hist = workoutHistory[todayStr];
+                
+                // Fallback for older history data structure, if necessary
+                const displayName = hist.name ? hist.name : hist;
+                const displayFocus = hist.bodyPart ? hist.bodyPart : "Completed";
+
+                document.getElementById('day-badge').innerText = `${displayName}: ${displayFocus}`;
+                document.getElementById('split-focus').innerText = "Status";
+                
+                const nextWorkout = workouts[currentWorkoutIndex]; // This index was already advanced when marked complete
+                
+                const list = document.getElementById('daily-exercises');
+                list.innerHTML = `
+                    <div style="padding:1.5rem 0; color:var(--text-secondary); text-align:center;">
+                        <h3 style="color:var(--text-primary); margin-bottom: 0.5rem;">You crushed today's workout!</h3>
+                        <p>Rest up. Next in your sequence will be:<br><strong>${nextWorkout.name} - ${nextWorkout.focus}</strong></p>
+                    </div>
+                `;
+
+                btn.innerText = "Workout Completed Today ✅";
                 btn.disabled = true;
+
             } else {
-                btn.innerText = "Mark Workout Complete ✅";
-                btn.disabled = false;
-            }
-            
-            if (workout.focus === "Rest") {
-                document.getElementById('workout-content').style.display = 'none';
-                document.getElementById('rest-message').style.display = 'block';
-                document.getElementById('day-badge').innerText = "Calorie Storage Day";
-                document.getElementById('day-badge').style.background = "#f4f4f5";
-                document.getElementById('day-badge').style.color = "#71717a";
-            } else {
-                document.getElementById('workout-content').style.display = 'block';
-                document.getElementById('rest-message').style.display = 'none';
-                document.getElementById('day-badge').innerText = workout.focus;
-                document.getElementById('day-badge').style.background = "#dbeafe";
-                document.getElementById('day-badge').style.color = "var(--accent)";
+                // Render the next pending workout
+                const workoutToRender = workouts[currentWorkoutIndex];
+                activeWorkoutName = workoutToRender.name;
+                activeWorkoutFocus = workoutToRender.focus;
+
+                document.getElementById('day-badge').innerText = activeWorkoutName + ": " + activeWorkoutFocus;
                 document.getElementById('split-focus').innerText = "Working Sets";
                 
                 const list = document.getElementById('daily-exercises');
                 list.innerHTML = ""; 
-                workout.exercises.forEach(ex => {
+                workoutToRender.exercises.forEach(ex => {
                     const div = document.createElement('div');
                     div.className = 'exercise-item';
                     div.innerHTML = `<span class="exercise-name">${ex.name}</span><span class="exercise-meta">${ex.sets} x ${ex.reps}</span>`;
                     list.appendChild(div);
                 });
-            }
-        }
 
-        function loadMakeupWorkout() {
-            const select = document.getElementById('makeup-select');
-            if(select.value !== "") {
-                renderTodayWorkout(parseInt(select.value));
+                btn.innerText = "Mark Workout Complete ✅";
+                btn.disabled = false;
             }
         }
 
@@ -429,24 +480,36 @@
         // --- MARK COMPLETE & GOOGLE SHEETS SYNC ---
         function markWorkoutComplete() {
             const todayStr = getLocalDateString(currentDate);
+            const timestamp = new Date().toLocaleTimeString('en-US'); // Records the exact time of completion
             
-            // Save locally
-            workoutHistory[todayStr] = activeWorkoutName;
+            // 1. Save data locally
+            workoutHistory[todayStr] = {
+                name: activeWorkoutName,
+                bodyPart: activeWorkoutFocus,
+                timeCompleted: timestamp
+            };
             localStorage.setItem('massWorkoutHistory', JSON.stringify(workoutHistory));
             
-            // Update UI
-            const btn = document.getElementById('complete-btn');
-            btn.innerText = "Workout Completed ✅";
-            btn.disabled = true;
-            renderCalendar(); // Refresh calendar to show the dot
+            // 2. Advance the sequential workout tracker index
+            currentWorkoutIndex = (currentWorkoutIndex + 1) % workouts.length;
+            localStorage.setItem('massWorkoutIndex', currentWorkoutIndex);
+            
+            // 3. Update the UI Immediately
+            renderTodayWorkout();
+            renderCalendar(); 
 
-            // Send to Google Sheets
-            if(GOOGLE_SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbw7ore0NXBgY8WQHdT15_WfBb2It9GyjdVLhueZ-BTNTsd8It5bLtWXoNsmQ44b-6iY/exec") {
+            // 4. Send rich payload to Google Sheets (Date, Time, Workout Day, Body Part)
+            if(GOOGLE_SCRIPT_URL !== "YOUR_GOOGLE_APP_SCRIPT_URL_HERE") {
                 fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ date: todayStr, workout: activeWorkoutName })
+                    body: JSON.stringify({ 
+                        date: todayStr, 
+                        time: timestamp,
+                        workout: activeWorkoutName,
+                        bodyPart: activeWorkoutFocus
+                    })
                 }).catch(err => console.log('Google Sheets sync error:', err));
             }
         }
