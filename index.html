@@ -61,7 +61,8 @@
             border-bottom: 1px solid #f3f4f6;
         }
         .exercise-item:last-child { border-bottom: none; }
-        .exercise-name { font-weight: 600; font-size: 1.05rem; }
+        .exercise-name { font-weight: 600; font-size: 1.05rem; cursor: pointer; }
+        .exercise-name:hover { color: var(--accent); text-decoration: underline; }
         .exercise-meta { 
             color: var(--accent); 
             font-weight: 600; 
@@ -161,6 +162,42 @@
         .calendar-day.empty { background: transparent; border: none; }
         .calendar-day.today { border: 2px solid var(--text-primary); }
         .completed-dot { height: 6px; width: 6px; background-color: var(--accent); border-radius: 50%; display: inline-block; margin-top: 4px; }
+
+        /* Video Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+        }
+        .modal-content {
+            position: relative;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 720px;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .modal iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -312,6 +349,14 @@
         </section>
     </div>
 
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeVideoModal()">&times;</span>
+            <iframe id="videoFrame" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
     <script>
         // --- GOOGLE SHEETS SETUP (Replace URL once created) ---
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxxSZ78Zvy4f6bVm9tZpjYetIN3DvVCeSTpHpZxNhePnd_OS8g2IW5aPNB4PhfhLOn/exec";
@@ -336,70 +381,88 @@
             {
                 name: "Day 1", focus: "Chest & Triceps",
                 exercises: [
-                    { name: "Barbell Bench Press", sets: "3 Sets", reps: "8-12" },
-                    { name: "Dumbbell Incline - Angle Pushup", sets: "3 Sets", reps: "8-12" },
-                    { name: "Dumbbell Flat Flyes", sets: "3 Sets", reps: "8-12" },
-                    { name: "Barbell Skull Crushers", sets: "3 Sets", reps: "8-12" },
-                    { name: "Dumbbell Overhead Tricep Extention", sets: "3 Sets", reps: "8-12" },
-                    { name: "Close Grip Bench Press", sets: "3 Sets", reps: "8-12" }
+                    { name: "Barbell Bench Press", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/gRVjAtPip0Y" },
+                    { name: "Dumbbell Incline - Angle Pushup", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/3g4m1fW9m5c" },
+                    { name: "Dumbbell Flat Flyes", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/eozdVDA78K0" },
+                    { name: "Barbell Skull Crushers", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/d_KZxkY_0cM" },
+                    { name: "Dumbbell Overhead Tricep Extention", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/YbX7Wd8jQ-Q" },
+                    { name: "Close Grip Bench Press", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/nRF0eqELmFg" },
+                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "https://www.youtube.com/embed/3g4m1fW9m5c" },
+                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "https://www.youtube.com/embed/eozdVDA78K0" },
+                    { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "https://www.youtube.com/embed/d_KZxkY_0cM" }
                 ]
             },
             {
                 name: "Day 2", focus: "Back & Biceps",
                 exercises: [
-                    { name: "Pull-ups", sets: "3 Sets", reps: "8-12" },
-                    { name: "Barbell Bent - Over Rows", sets: "3 Sets", reps: "8-12" },
-                    { name: "Dumbbell Pullovers", sets: "3 Sets", reps: "8-12" },
-                    { name: "Strict Barbell Curls", sets: "3 Sets", reps: "8-12" },
-                    { name: "Dumbbell Hammer Curls", sets: "3 Sets", reps: "8-12" },
-                    { name: "Deadlift", sets: "3 Sets", reps: "8-12" },
-                    { name: "Preacher Curl", sets: "3 Sets", reps: "8-12" },
-                    { name: "Dumbbell Curls", sets: "3 Sets", reps: "8-12" }
+                    { name: "Pull-ups", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/eGo4IYlbE5g" },
+                    { name: "Barbell Bent - Over Rows", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/vc1E5CfRfqE" },
+                    { name: "Dumbbell Pullovers", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/2vP5i3kG3kQ" },
+                    { name: "Strict Barbell Curls", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/ykJmrZ5v0Oo" },
+                    { name: "Dumbbell Hammer Curls", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/zC3nLlEvin4" },
+                    { name: "Deadlift", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/op9kVnSso6Q" },
+                    { name: "Preacher Curl", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/fIWF9nxB7ps" },
+                    { name: "Dumbbell Curls", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/ykJmrZ5v0Oo" },
+                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "https://www.youtube.com/embed/3g4m1fW9m5c" },
+                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "https://www.youtube.com/embed/eozdVDA78K0" },
+                    { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "https://www.youtube.com/embed/d_KZxkY_0cM" }
                 ]
             },
             {
                 name: "Day 3", focus: "Shoulders & Legs",
                 exercises: [
-                    { name: "Barbell Overhead Press (Military Press)", sets: "3 Sets", reps: "8-12" },
-                    { name: "Barbell Pause Squats", sets: "3 Sets", reps: "8-12" },
-                    { name: "Dumbbell Lateral Raises", sets: "3 Sets", reps: "8-12" },
-                    { name: "Goblet Squats", sets: "3 Sets", reps: "8-12" },
-                    { name: "Hanging Leg Raise", sets: "3 Sets", reps: "8-12" },
-                    { name: "Front Raise", sets: "3 Sets", reps: "8-12" },
-                    { name: "Heavy Squats", sets: "3 Sets", reps: "8-12" }
+                    { name: "Barbell Overhead Press (Military Press)", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/2yjwXTZQDDI" },
+                    { name: "Barbell Pause Squats", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/ultWZbUMPL8" },
+                    { name: "Dumbbell Lateral Raises", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/3VcKaXpzqRo" },
+                    { name: "Goblet Squats", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/meEOv7cRXOw" },
+                    { name: "Hanging Leg Raise", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/l4kQd9eWclE" },
+                    { name: "Front Raise", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/-t7fuZ0KhDA" },
+                    { name: "Heavy Squats", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/ultWZbUMPL8" },
+                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "https://www.youtube.com/embed/3g4m1fW9m5c" },
+                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "https://www.youtube.com/embed/eozdVDA78K0" },
+                    { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "https://www.youtube.com/embed/d_KZxkY_0cM" }
                 ]
             },
             {
                 name: "Day 4", focus: "Triceps & Chest",
                 exercises: [
-                    { name: "Close-Grip barbell Bench Press", sets: "3 Sets", reps: "8-12" },
-                    { name: "Dumbbell Tricep Kickbacks", sets: "3 Sets", reps: "8-12" },
-                    { name: "Deficit Push ups (Dificit Push ups)", sets: "3 Sets", reps: "8-12" },
-                    { name: "Dumbbell Floor Press", sets: "3 Sets", reps: "8-12" },
-                    { name: "Dumbbell Fly", sets: "3 Sets", reps: "8-12" }
+                    { name: "Close-Grip barbell Bench Press", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/nRF0eqELmFg" },
+                    { name: "Dumbbell Tricep Kickbacks", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/2-LAMcpzODU" },
+                    { name: "Deficit Push ups (Dificit Push ups)", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/3g4m1fW9m5c" },
+                    { name: "Dumbbell Floor Press", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/eozdVDA78K0" },
+                    { name: "Dumbbell Fly", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/d_KZxkY_0cM" },
+                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "https://www.youtube.com/embed/3g4m1fW9m5c" },
+                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "https://www.youtube.com/embed/eozdVDA78K0" },
+                    { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "https://www.youtube.com/embed/d_KZxkY_0cM" }
                 ]
             },
             {
                 name: "Day 5", focus: "Biceps & Back",
                 exercises: [
-                    { name: "Underhand Chin-ups", sets: "3 Sets", reps: "8-12" },
-                    { name: "Dumbbell Concentration Curls", sets: "3 Sets", reps: "8-12" },
-                    { name: "Barbell Reverse Curls", sets: "3 Sets", reps: "8-12" },
-                    { name: "Barbell Shrugs", sets: "3 Sets", reps: "8-12" },
-                    { name: "Barbell Bent Over Row", sets: "3 Sets", reps: "8-12" },
-                    { name: "Preacher Curl", sets: "3 Sets", reps: "8-12" }
+                    { name: "Underhand Chin-ups", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/eGo4IYlbE5g" },
+                    { name: "Dumbbell Concentration Curls", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/zC3nLlEvin4" },
+                    { name: "Barbell Reverse Curls", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/ykJmrZ5v0Oo" },
+                    { name: "Barbell Shrugs", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/vc1E5CfRfqE" },
+                    { name: "Barbell Bent Over Row", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/vc1E5CfRfqE" },
+                    { name: "Preacher Curl", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/fIWF9nxB7ps" },
+                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "https://www.youtube.com/embed/3g4m1fW9m5c" },
+                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "https://www.youtube.com/embed/eozdVDA78K0" },
+                    { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "https://www.youtube.com/embed/d_KZxkY_0cM" }
                 ]
             },
             {
                 name: "Day 6", focus: "Leg & Shoulder",
                 exercises: [
-                    { name: "Barbell Romanian Deadlifts", sets: "3 Sets", reps: "8-12" },
-                    { name: "Barbell Front Squats", sets: "3 Sets", reps: "8-12" },
-                    { name: "Barbell Upright Rows", sets: "3 Sets", reps: "8-12" },
-                    { name: "Dumbbell Arnold Press", sets: "3 Sets", reps: "8-12" },
-                    { name: "Rear Delt Fly", sets: "3 Sets", reps: "8-12" },
-                    { name: "Lateral Raise", sets: "3 Sets", reps: "8-12" },
-                    { name: "Overhead Press", sets: "3 Sets", reps: "8-12" }
+                    { name: "Barbell Romanian Deadlifts", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/op9kVnSso6Q" },
+                    { name: "Barbell Front Squats", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/ultWZbUMPL8" },
+                    { name: "Barbell Upright Rows", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/2yjwXTZQDDI" },
+                    { name: "Dumbbell Arnold Press", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/3VcKaXpzqRo" },
+                    { name: "Rear Delt Fly", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/-t7fuZ0KhDA" },
+                    { name: "Lateral Raise", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/3VcKaXpzqRo" },
+                    { name: "Overhead Press", sets: "3 Sets", reps: "8-12", video: "https://www.youtube.com/embed/2yjwXTZQDDI" },
+                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "https://www.youtube.com/embed/3g4m1fW9m5c" },
+                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "https://www.youtube.com/embed/eozdVDA78K0" },
+                    { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "https://www.youtube.com/embed/d_KZxkY_0cM" }
                 ]
             }
         ];
@@ -463,7 +526,7 @@
                 workoutToRender.exercises.forEach(ex => {
                     const div = document.createElement('div');
                     div.className = 'exercise-item';
-                    div.innerHTML = `<span class="exercise-name">${ex.name}</span><span class="exercise-meta">${ex.sets} x ${ex.reps}</span>`;
+                    div.innerHTML = `<span class="exercise-name" onclick="showVideo('${ex.video}', '${ex.name}')">${ex.name}</span><span class="exercise-meta">${ex.sets} x ${ex.reps}</span>`;
                     list.appendChild(div);
                 });
 
@@ -475,6 +538,29 @@
         function getLocalDateString(date) {
             const tzoffset = date.getTimezoneOffset() * 60000;
             return (new Date(date - tzoffset)).toISOString().split('T')[0];
+        }
+
+        // --- VIDEO MODAL ---
+        function showVideo(videoUrl, exerciseName) {
+            const modal = document.getElementById('videoModal');
+            const frame = document.getElementById('videoFrame');
+            frame.src = videoUrl;
+            modal.style.display = 'block';
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const frame = document.getElementById('videoFrame');
+            frame.src = '';
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('videoModal');
+            if (event.target === modal) {
+                closeVideoModal();
+            }
         }
 
         // --- MARK COMPLETE & GOOGLE SHEETS SYNC ---
@@ -499,7 +585,7 @@
             renderCalendar(); 
 
             // 4. Send rich payload to Google Sheets (Date, Time, Workout Day, Body Part)
-            if(GOOGLE_SCRIPT_URL !== "YOUR_GOOGLE_APP_SCRIPT_URL_HERE") {
+            if(GOOGLE_SCRIPT_URL !== "https://docs.google.com/spreadsheets/d/1ShxPmWObew_2xrOidgkxuT-gIL4nI16saK74o0FKGm8/edit?usp=sharing") {
                 fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -601,5 +687,5 @@
 
         init();
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a22416614f6db117',t:'MTc4NTI0Mzg0Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
