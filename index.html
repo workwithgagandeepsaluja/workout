@@ -56,13 +56,26 @@
         .exercise-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             padding: 1rem 0;
             border-bottom: 1px solid #f3f4f6;
+            gap: 12px;
         }
         .exercise-item:last-child { border-bottom: none; }
-        .exercise-name { font-weight: 600; font-size: 1.05rem; cursor: pointer; }
-        .exercise-name:hover { color: var(--accent); text-decoration: underline; }
+        .exercise-name { font-weight: 600; font-size: 1.05rem; }
+        .procedure { 
+            font-size: 0.875rem; 
+            color: #4b5563; 
+            margin-top: 4px; 
+            line-height: 1.45; 
+            max-width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        .exercise-left {
+            flex: 1;
+            min-width: 0;
+        }
         .exercise-meta { 
             color: var(--accent); 
             font-weight: 600; 
@@ -163,40 +176,7 @@
         .calendar-day.today { border: 2px solid var(--text-primary); }
         .completed-dot { height: 6px; width: 6px; background-color: var(--accent); border-radius: 50%; display: inline-block; margin-top: 4px; }
 
-        /* Video Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.85);
-        }
-        .modal-content {
-            position: relative;
-            margin: 5% auto;
-            width: 90%;
-            max-width: 720px;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .modal-close {
-            position: absolute;
-            top: 12px;
-            right: 16px;
-            color: #fff;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        .modal video {
-            width: 100%;
-            display: block;
-        }
+
     </style>
 </head>
 <body>
@@ -231,7 +211,6 @@
                 <div class="section-divider"></div>
 
                 <span class="mandatory-tag" id="split-focus">Focus Area</span>
-                <div style="font-size:0.75rem;color:#6b7280;margin-bottom:0.5rem;">Click exercise name to watch video</div>
                 <div id="daily-exercises">
                     </div>
                 
@@ -349,13 +328,7 @@
         </section>
     </div>
 
-    <!-- Video Modal -->
-    <div id="videoModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeVideoModal()">&times;</span>
-            <video id="videoPlayer" width="100%" height="400" controls></video>
-        </div>
-    </div>
+
 
     <script>
         // --- GOOGLE SHEETS SETUP (Replace URL once created) ---
@@ -381,87 +354,87 @@
             {
                 name: "Day 1", focus: "Chest & Triceps",
                 exercises: [
-                    { name: "Barbell Bench Press", sets: "3 Sets", reps: "8-12", video: "videos/bench-press.mp4", desc: "Lie on bench, lower bar to chest, press up explosively." },
-                    { name: "Dumbbell Incline - Angle Pushup", sets: "3 Sets", reps: "8-12", video: "videos/incline-pushup.mp4", desc: "Use dumbbells or push-up position on incline bench." },
-                    { name: "Dumbbell Flat Flyes", sets: "3 Sets", reps: "8-12", video: "videos/flat-flyes.mp4", desc: "Lie on bench, arms slightly bent, lower weights in arc motion." },
-                    { name: "Barbell Skull Crushers", sets: "3 Sets", reps: "8-12", video: "videos/skull-crushers.mp4", desc: "Lie on bench, lower barbell to forehead, extend arms." },
-                    { name: "Dumbbell Overhead Tricep Extention", sets: "3 Sets", reps: "8-12", video: "videos/overhead-tricep.mp4", desc: "Hold dumbbell overhead, lower behind head, extend." },
-                    { name: "Close Grip Bench Press", sets: "3 Sets", reps: "8-12", video: "videos/close-grip-bench.mp4", desc: "Narrow grip bench press targeting triceps." },
-                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", desc: "Use dumbbells or push-up position on incline bench." },
-                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", desc: "Lie on bench, arms slightly bent, lower weights in arc motion." },
+                    { name: "Barbell Bench Press", sets: "3 Sets", reps: "8-12", video: "videos/bench-press.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Incline - Angle Pushup", sets: "3 Sets", reps: "8-12", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Flat Flyes", sets: "3 Sets", reps: "8-12", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Barbell Skull Crushers", sets: "3 Sets", reps: "8-12", video: "videos/skull-crushers.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Overhead Tricep Extention", sets: "3 Sets", reps: "8-12", video: "videos/overhead-tricep.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Close Grip Bench Press", sets: "3 Sets", reps: "8-12", video: "videos/close-grip-bench.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
                     { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "videos/skull-crushers.mp4" }
                 ]
             },
             {
                 name: "Day 2", focus: "Back & Biceps",
                 exercises: [
-                    { name: "Pull-ups", sets: "3 Sets", reps: "8-12", video: "videos/pull-ups.mp4", desc: "Pull body up until chin clears bar." },
-                    { name: "Barbell Bent - Over Rows", sets: "3 Sets", reps: "8-12", video: "videos/bent-over-row.mp4", desc: "Hinge at hips, pull bar to lower chest." },
-                    { name: "Dumbbell Pullovers", sets: "3 Sets", reps: "8-12", video: "videos/pullovers.mp4", desc: "Hold dumbbell above chest, lower behind head." },
-                    { name: "Strict Barbell Curls", sets: "3 Sets", reps: "8-12", video: "videos/barbell-curls.mp4", desc: "Curl barbell to shoulders keeping elbows fixed." },
-                    { name: "Dumbbell Hammer Curls", sets: "3 Sets", reps: "8-12", video: "videos/hammer-curls.mp4", desc: "Curl dumbbells with palms facing each other." },
-                    { name: "Deadlift", sets: "3 Sets", reps: "8-12", video: "videos/deadlift.mp4", desc: "Hinge hips, grip bar, stand tall driving through heels." },
-                    { name: "Preacher Curl", sets: "3 Sets", reps: "8-12", video: "videos/preacher-curl.mp4", desc: "Curl on preacher bench for strict form." },
-                    { name: "Dumbbell Curls", sets: "3 Sets", reps: "8-12", video: "videos/barbell-curls.mp4", desc: "Curl barbell to shoulders keeping elbows fixed." },
-                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", desc: "Use dumbbells or push-up position on incline bench." },
-                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", desc: "Lie on bench, arms slightly bent, lower weights in arc motion." },
+                    { name: "Pull-ups", sets: "3 Sets", reps: "8-12", video: "videos/pull-ups.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Barbell Bent - Over Rows", sets: "3 Sets", reps: "8-12", video: "videos/bent-over-row.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Pullovers", sets: "3 Sets", reps: "8-12", video: "videos/pullovers.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Strict Barbell Curls", sets: "3 Sets", reps: "8-12", video: "videos/barbell-curls.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Hammer Curls", sets: "3 Sets", reps: "8-12", video: "videos/hammer-curls.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Deadlift", sets: "3 Sets", reps: "8-12", video: "videos/deadlift.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Preacher Curl", sets: "3 Sets", reps: "8-12", video: "videos/preacher-curl.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Curls", sets: "3 Sets", reps: "8-12", video: "videos/barbell-curls.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
                     { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "videos/skull-crushers.mp4" }
                 ]
             },
             {
                 name: "Day 3", focus: "Shoulders & Legs",
                 exercises: [
-                    { name: "Barbell Overhead Press (Military Press)", sets: "3 Sets", reps: "8-12", video: "videos/overhead-press.mp4", desc: "Press barbell overhead from shoulder level." },
-                    { name: "Barbell Pause Squats", sets: "3 Sets", reps: "8-12", video: "videos/squats.mp4", desc: "Lower body until thighs are parallel to ground." },
-                    { name: "Dumbbell Lateral Raises", sets: "3 Sets", reps: "8-12", video: "videos/lateral-raises.mp4", desc: "Raise dumbbells out to sides until parallel to floor." },
-                    { name: "Goblet Squats", sets: "3 Sets", reps: "8-12", video: "videos/goblet-squats.mp4", desc: "Hold dumbbell at chest, squat down." },
-                    { name: "Hanging Leg Raise", sets: "3 Sets", reps: "8-12", video: "videos/hanging-leg-raise.mp4", desc: "Hang from bar, raise legs to parallel." },
-                    { name: "Front Raise", sets: "3 Sets", reps: "8-12", video: "videos/front-raise.mp4", desc: "Raise dumbbells in front to shoulder height." },
-                    { name: "Heavy Squats", sets: "3 Sets", reps: "8-12", video: "videos/squats.mp4", desc: "Lower body until thighs are parallel to ground." },
-                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", desc: "Use dumbbells or push-up position on incline bench." },
-                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", desc: "Lie on bench, arms slightly bent, lower weights in arc motion." },
+                    { name: "Barbell Overhead Press (Military Press)", sets: "3 Sets", reps: "8-12", video: "videos/overhead-press.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Barbell Pause Squats", sets: "3 Sets", reps: "8-12", video: "videos/squats.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Lateral Raises", sets: "3 Sets", reps: "8-12", video: "videos/lateral-raises.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Goblet Squats", sets: "3 Sets", reps: "8-12", video: "videos/goblet-squats.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Hanging Leg Raise", sets: "3 Sets", reps: "8-12", video: "videos/hanging-leg-raise.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Front Raise", sets: "3 Sets", reps: "8-12", video: "videos/front-raise.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Heavy Squats", sets: "3 Sets", reps: "8-12", video: "videos/squats.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
                     { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "videos/skull-crushers.mp4" }
                 ]
             },
             {
                 name: "Day 4", focus: "Triceps & Chest",
                 exercises: [
-                    { name: "Close-Grip barbell Bench Press", sets: "3 Sets", reps: "8-12", video: "videos/close-grip-bench.mp4", desc: "Narrow grip bench press targeting triceps." },
-                    { name: "Dumbbell Tricep Kickbacks", sets: "3 Sets", reps: "8-12", video: "videos/tricep-kickbacks.mp4", desc: "Bend forward, extend arm back with dumbbell." },
-                    { name: "Deficit Push ups (Dificit Push ups)", sets: "3 Sets", reps: "8-12", video: "videos/incline-pushup.mp4", desc: "Use dumbbells or push-up position on incline bench." },
-                    { name: "Dumbbell Floor Press", sets: "3 Sets", reps: "8-12", video: "videos/flat-flyes.mp4", desc: "Lie on bench, arms slightly bent, lower weights in arc motion." },
-                    { name: "Dumbbell Fly", sets: "3 Sets", reps: "8-12", video: "videos/skull-crushers.mp4", desc: "Lie on bench, lower barbell to forehead, extend arms." },
-                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", desc: "Use dumbbells or push-up position on incline bench." },
-                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", desc: "Lie on bench, arms slightly bent, lower weights in arc motion." },
+                    { name: "Close-Grip barbell Bench Press", sets: "3 Sets", reps: "8-12", video: "videos/close-grip-bench.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Tricep Kickbacks", sets: "3 Sets", reps: "8-12", video: "videos/tricep-kickbacks.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Deficit Push ups (Dificit Push ups)", sets: "3 Sets", reps: "8-12", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Floor Press", sets: "3 Sets", reps: "8-12", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Fly", sets: "3 Sets", reps: "8-12", video: "videos/skull-crushers.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
                     { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "videos/skull-crushers.mp4" }
                 ]
             },
             {
                 name: "Day 5", focus: "Biceps & Back",
                 exercises: [
-                    { name: "Underhand Chin-ups", sets: "3 Sets", reps: "8-12", video: "videos/pull-ups.mp4", desc: "Pull body up until chin clears bar." },
-                    { name: "Dumbbell Concentration Curls", sets: "3 Sets", reps: "8-12", video: "videos/hammer-curls.mp4", desc: "Curl dumbbells with palms facing each other." },
-                    { name: "Barbell Reverse Curls", sets: "3 Sets", reps: "8-12", video: "videos/barbell-curls.mp4", desc: "Curl barbell to shoulders keeping elbows fixed." },
-                    { name: "Barbell Shrugs", sets: "3 Sets", reps: "8-12", video: "videos/bent-over-row.mp4", desc: "Hinge at hips, pull bar to lower chest." },
-                    { name: "Barbell Bent Over Row", sets: "3 Sets", reps: "8-12", video: "videos/bent-over-row.mp4", desc: "Hinge at hips, pull bar to lower chest." },
-                    { name: "Preacher Curl", sets: "3 Sets", reps: "8-12", video: "videos/preacher-curl.mp4", desc: "Curl on preacher bench for strict form." },
-                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", desc: "Use dumbbells or push-up position on incline bench." },
-                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", desc: "Lie on bench, arms slightly bent, lower weights in arc motion." },
+                    { name: "Underhand Chin-ups", sets: "3 Sets", reps: "8-12", video: "videos/pull-ups.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Concentration Curls", sets: "3 Sets", reps: "8-12", video: "videos/hammer-curls.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Barbell Reverse Curls", sets: "3 Sets", reps: "8-12", video: "videos/barbell-curls.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Barbell Shrugs", sets: "3 Sets", reps: "8-12", video: "videos/bent-over-row.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Barbell Bent Over Row", sets: "3 Sets", reps: "8-12", video: "videos/bent-over-row.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Preacher Curl", sets: "3 Sets", reps: "8-12", video: "videos/preacher-curl.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
                     { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "videos/skull-crushers.mp4" }
                 ]
             },
             {
                 name: "Day 6", focus: "Leg & Shoulder",
                 exercises: [
-                    { name: "Barbell Romanian Deadlifts", sets: "3 Sets", reps: "8-12", video: "videos/deadlift.mp4", desc: "Hinge hips, grip bar, stand tall driving through heels." },
-                    { name: "Barbell Front Squats", sets: "3 Sets", reps: "8-12", video: "videos/squats.mp4", desc: "Lower body until thighs are parallel to ground." },
-                    { name: "Barbell Upright Rows", sets: "3 Sets", reps: "8-12", video: "videos/overhead-press.mp4", desc: "Press barbell overhead from shoulder level." },
-                    { name: "Dumbbell Arnold Press", sets: "3 Sets", reps: "8-12", video: "videos/lateral-raises.mp4", desc: "Raise dumbbells out to sides until parallel to floor." },
-                    { name: "Rear Delt Fly", sets: "3 Sets", reps: "8-12", video: "videos/front-raise.mp4", desc: "Raise dumbbells in front to shoulder height." },
-                    { name: "Lateral Raise", sets: "3 Sets", reps: "8-12", video: "videos/lateral-raises.mp4", desc: "Raise dumbbells out to sides until parallel to floor." },
-                    { name: "Overhead Press", sets: "3 Sets", reps: "8-12", video: "videos/overhead-press.mp4", desc: "Press barbell overhead from shoulder level." },
-                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", desc: "Use dumbbells or push-up position on incline bench." },
-                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", desc: "Lie on bench, arms slightly bent, lower weights in arc motion." },
+                    { name: "Barbell Romanian Deadlifts", sets: "3 Sets", reps: "8-12", video: "videos/deadlift.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Barbell Front Squats", sets: "3 Sets", reps: "8-12", video: "videos/squats.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Barbell Upright Rows", sets: "3 Sets", reps: "8-12", video: "videos/overhead-press.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Arnold Press", sets: "3 Sets", reps: "8-12", video: "videos/lateral-raises.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Rear Delt Fly", sets: "3 Sets", reps: "8-12", video: "videos/front-raise.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Lateral Raise", sets: "3 Sets", reps: "8-12", video: "videos/lateral-raises.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Overhead Press", sets: "3 Sets", reps: "8-12", video: "videos/overhead-press.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
+                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
                     { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "videos/skull-crushers.mp4" }
                 ]
             }
@@ -477,9 +450,24 @@
         let workoutHistory = JSON.parse(localStorage.getItem('massWorkoutHistory')) || {};
 
         // --- INIT & WORKOUT LOGIC ---
-        function init() {
+        async function init() {
+            await fetchWorkoutHistoryFromSheet();
             renderTodayWorkout();
             renderCalendar();
+        }
+
+        async function fetchWorkoutHistoryFromSheet() {
+            if (GOOGLE_SCRIPT_URL.includes("YOUR_GOOGLE_APP_SCRIPT_URL_HERE")) return;
+            try {
+                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=getHistory");
+                const data = await res.json();
+                if (data && data.history) {
+                    workoutHistory = data.history;
+                    localStorage.setItem('massWorkoutHistory', JSON.stringify(workoutHistory));
+                }
+            } catch (e) {
+                console.log("Could not fetch from Google Sheets, using local data.");
+            }
         }
 
         function renderTodayWorkout() {
@@ -526,7 +514,13 @@
                 workoutToRender.exercises.forEach(ex => {
                     const div = document.createElement('div');
                     div.className = 'exercise-item';
-                    div.innerHTML = `<div><span class="exercise-name" onclick="showVideo('${ex.video}', '${ex.name}')">${ex.name}</span><div style="font-size:0.8rem;color:#6b7280;margin-top:2px;">${ex.desc || ''}</div></div><span class="exercise-meta">${ex.sets} x ${ex.reps}</span>`;
+                    div.innerHTML = `
+                        <div class="exercise-left">
+                            <span class="exercise-name">${ex.name}</span>
+                            <div class="procedure">${ex.procedure || ''}</div>
+                        </div>
+                        <span class="exercise-meta">${ex.sets} x ${ex.reps}</span>
+                    `;
                     list.appendChild(div);
                 });
 
@@ -689,5 +683,5 @@
 
         init();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a22472349d640186',t:'MTc4NTI0NzYwMw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
