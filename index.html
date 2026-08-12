@@ -10,10 +10,9 @@
             --card-bg: #ffffff;
             --text-primary: #1f2937;
             --text-secondary: #6b7280;
-            --accent: #2563eb; /* Royal Blue */
+            --accent: #2563eb;
             --radius: 12px;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
@@ -25,208 +24,142 @@
             margin-left: auto;
             margin-right: auto;
         }
-
         h1, h2, h3 { letter-spacing: -0.025em; margin-top: 0; }
         h1 { font-size: 1.8rem; margin-bottom: 2rem; }
-        h2 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem;}
-
+        h2 { color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem; margin-bottom: 1rem; }
         .container { display: flex; flex-direction: column; gap: 2rem; }
-        
         .card {
             background: var(--card-bg);
             padding: 1.5rem;
             border-radius: var(--radius);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
-
         .date-header { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem; }
-        .day-badge { 
-            display: inline-block; 
-            padding: 4px 12px; 
-            border-radius: 9999px; 
-            font-size: 0.875rem; 
-            font-weight: 600; 
-            background: #dbeafe;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-        }
-
+        .day-badge { display: inline-block; padding: 4px 12px; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; background: #dbeafe; color: var(--accent); margin-bottom: 1rem; }
         .section-divider { border-top: 1px solid #e5e7eb; margin: 1.5rem 0; }
-
-        .exercise-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 1rem 0;
-            border-bottom: 1px solid #f3f4f6;
-            gap: 12px;
-        }
+        .exercise-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 1rem 0; border-bottom: 1px solid #f3f4f6; gap: 12px; }
         .exercise-item:last-child { border-bottom: none; }
         .exercise-name { font-weight: 600; font-size: 1.05rem; }
-        .procedure { 
-            font-size: 0.875rem; 
-            color: #4b5563; 
-            margin-top: 4px; 
-            line-height: 1.45; 
-            max-width: 100%;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-        .exercise-left {
-            flex: 1;
-            min-width: 0;
-        }
-        .exercise-meta { 
-            color: var(--accent); 
-            font-weight: 600; 
-            font-size: 0.95rem; 
-            background: #eff6ff;
-            padding: 4px 10px;
-            border-radius: 6px;
-        }
-
-        .mandatory-tag {
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .mandatory-block {
-            background: #f8fafc; 
-            border: 1px solid #e2e8f0;
-            padding: 1rem; 
-            border-radius: 8px; 
-            margin-bottom: 1.5rem;
-        }
-
-        .rest-day { text-align: center; padding: 3rem 0; color: var(--text-secondary); }
-
+        .procedure { font-size: 0.875rem; color: #4b5563; margin-top: 4px; line-height: 1.45; max-width: 100%; word-wrap: break-word; overflow-wrap: break-word; }
+        .exercise-left { flex: 1; min-width: 0; }
+        .exercise-meta { color: var(--accent); font-weight: 600; font-size: 0.95rem; background: #eff6ff; padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+        .mandatory-tag { color: var(--text-secondary); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; display: block; }
+        .mandatory-block { background: #f8fafc; border: 1px solid #e2e8f0; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; }
         .input-group { margin-bottom: 1rem; }
         .input-row { display: flex; gap: 1rem; flex-wrap: wrap;}
         .input-row > div { flex: 1; min-width: 150px; }
-        
         label { display: block; font-size: 0.875rem; margin-bottom: 0.5rem; color: var(--text-secondary); font-weight: 500;}
-        
-        /* Flattened, modern dropdowns and inputs */
-        input, select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 1rem;
-            box-sizing: border-box; 
-            background-color: #fff;
-            color: var(--text-primary);
-            transition: border-color 0.2s, box-shadow 0.2s;
-            appearance: none; 
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            box-shadow: none;
-        }
-        
-        /* Custom minimalist arrow for the select dropdown */
-        select {
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
-            background-repeat: no-repeat;
-            background-position: right 1rem top 50%;
-            background-size: 0.65rem auto;
-            padding-right: 2.5rem;
-        }
-
+        input, select { width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem; box-sizing: border-box; background-color: #fff; color: var(--text-primary); transition: border-color 0.2s, box-shadow 0.2s; appearance: none; -webkit-appearance: none; -moz-appearance: none; box-shadow: none; }
+        select { background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 1rem top 50%; background-size: 0.65rem auto; padding-right: 2.5rem; }
         input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
-
-        button {
-            background-color: var(--text-primary);
-            color: #fff;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 0.5rem;
-            transition: background-color 0.2s;
-        }
+        button { background-color: var(--text-primary); color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 0.5rem; transition: background-color 0.2s; }
         button:hover { background-color: #374151; }
         button:disabled { background-color: #e5e7eb; color: #9ca3af; cursor: not-allowed; }
-
         table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
         th { text-align: left; color: var(--text-secondary); font-weight: 500; padding-bottom: 0.5rem; }
         td { padding: 0.75rem 0; border-top: 1px solid #f3f4f6; }
         .total-row { font-weight: 700; border-top: 2px solid #e5e7eb; font-size: 1rem; color: var(--text-primary);}
-
         .result-box { background: #f0f9ff; border: 1px solid #b9e6fe; padding: 1rem; border-radius: 8px; margin-top: 1rem; display: none; }
         .result-box.active { display: block; }
         .stat-row { display: flex; justify-content: space-between; margin-bottom: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px dashed #b9e6fe; }
         .stat-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .stat-val { font-weight: 700; color: var(--accent); }
-
-        /* Minimalist Calendar Styles */
         .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
         .calendar-header button { width: auto; padding: 0.4rem 0.8rem; margin: 0; background-color: transparent; color: var(--text-primary); border: 1px solid #d1d5db; font-size: 0.875rem;}
         .calendar-header button:hover { background-color: #f3f4f6; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; margin-top: 1rem;}
         .calendar-day-header { color: var(--text-secondary); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;}
-        .calendar-day { background: #fff; border: 1px solid #e5e7eb; padding: 0.75rem 0; border-radius: 6px; color: var(--text-primary); font-size: 0.9rem; transition: 0.2s; position: relative;}
+        .calendar-day { background: #fff; border: 1px solid #e5e7eb; padding: 0.75rem 0; border-radius: 6px; color: var(--text-primary); font-size: 0.9rem; transition: 0.2s; position: relative; cursor:pointer;}
         .calendar-day.completed { background: #eff6ff; border-color: var(--accent); color: var(--accent); font-weight: bold; }
         .calendar-day.empty { background: transparent; border: none; }
         .calendar-day.today { border: 2px solid var(--text-primary); }
         .completed-dot { height: 6px; width: 6px; background-color: var(--accent); border-radius: 50%; display: inline-block; margin-top: 4px; }
-
-
+        /* Minimal additions — same style */
+        .timer-section { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+        .timer-display { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+        .timer-controls { display: flex; gap: 8px; }
+        .timer-controls button { width: auto; margin: 0; padding: 0.5rem 1rem; font-size: 0.875rem; }
+        .timer-controls button.secondary { background: white; color: var(--text-primary); border: 1px solid #d1d5db; }
+        .timer-bar { height: 6px; background: #e5e7eb; border-radius: 9999px; overflow: hidden; margin-top: 0.5rem; }
+        .timer-bar-fill { height: 100%; background: var(--accent); width: 100%; transition: width 1s linear; }
+        .cat-filter { display: flex; gap: 6px; flex-wrap: wrap; margin: 1rem 0; }
+        .cat-btn { width: auto; padding: 0.4rem 0.9rem; font-size: 0.8rem; margin: 0; border-radius: 9999px; font-weight: 600; }
+        .cat-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+        .cat-btn.inactive { background: white; color: var(--text-secondary); border: 1px solid #d1d5db; }
+        .exercise-category { font-size: 0.7rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; padding: 2px 6px; border-radius: 4px; margin-left: 8px; }
+        .cat-equipment { background: #dbeafe; color: var(--accent); }
+        .cat-no-equipment { background: #dcfce7; color: #15803d; }
+        .cat-alternative { background: #fef3c7; color: #92400e; }
+        .video-link { font-size: 0.8rem; color: var(--accent); font-weight: 600; cursor: pointer; background: #eff6ff; padding: 4px 8px; border-radius: 6px; border: 1px solid #dbeafe; display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; text-decoration: none; }
+        .video-link:hover { background: #dbeafe; }
+        #videoModal { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 100; padding: 20px; align-items: center; justify-content: center; }
+        #videoModal.open { display: flex; }
+        .modal-inner { background: white; border-radius: 12px; max-width: 720px; width: 100%; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .modal-head { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-bottom: 1px solid #e5e7eb; }
+        .modal-body { aspect-ratio: 16/9; background: black; position: relative; }
+        .modal-body video, .modal-body iframe { width: 100%; height: 100%; border: 0; display: block; }
+        .modal-foot { padding: 1rem 1.25rem; }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--text-primary); color: white; padding: 0.75rem 1.25rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; z-index: 200; opacity: 0; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <header>
-            <h1>Pure Mass & Weight Tracker</h1>
-        </header>
+        <header><h1>Pure Mass & Weight Tracker</h1></header>
 
         <section class="card" id="workout-card">
             <h2>Today's Protocol</h2>
+
+            <div class="timer-section">
+                <div>
+                    <div class="mandatory-tag" style="margin-bottom:2px;">Session Timer • 90 Min Limit</div>
+                    <div class="timer-display" id="timer-display">90:00</div>
+                    <div class="timer-bar"><div class="timer-bar-fill" id="timer-bar-fill"></div></div>
+                </div>
+                <div class="timer-controls">
+                    <button id="timer-start">▶ Start</button>
+                    <button id="timer-pause" class="secondary">⏸ Pause</button>
+                    <button id="timer-reset" class="secondary">↺ Reset</button>
+                </div>
+            </div>
+
             <div id="date-display" class="date-header"></div>
             <div id="day-badge" class="day-badge"></div>
+
+            <div class="input-group">
+                <label for="workout-type-select">Workout Type</label>
+                <select id="workout-type-select"></select>
+            </div>
+
+            <div class="cat-filter" id="category-filter">
+                <button data-cat="all" class="cat-btn active">All</button>
+                <button data-cat="equipment" class="cat-btn inactive">With Equipment</button>
+                <button data-cat="no-equipment" class="cat-btn inactive">No Equipment</button>
+                <button data-cat="alternative" class="cat-btn inactive">Alternative</button>
+            </div>
 
             <div id="workout-content">
                 <span class="mandatory-tag">Mass Building Rules</span>
                 <div class="mandatory-block">
-                    <div class="exercise-item">
-                        <span class="exercise-name">Intensity</span>
-                        <span class="exercise-meta">Absolute Muscle Failure</span>
-                    </div>
-                    <div class="exercise-item">
-                        <span class="exercise-name">Creatine Target</span>
-                        <span class="exercise-meta">10-20g (Load) or 5g (Maint)</span>
-                    </div>
-                    <div class="exercise-item">
-                        <span class="exercise-name">Hydration</span>
-                        <span class="exercise-meta">4 Liters Minimum</span>
-                    </div>
+                    <div class="exercise-item"><span class="exercise-name">Intensity</span><span class="exercise-meta">Absolute Muscle Failure</span></div>
+                    <div class="exercise-item"><span class="exercise-name">Creatine Target</span><span class="exercise-meta">10-20g (Load) or 5g (Maint)</span></div>
+                    <div class="exercise-item"><span class="exercise-name">Hydration</span><span class="exercise-meta">4 Liters Minimum</span></div>
                 </div>
-
                 <div class="section-divider"></div>
-
-                <span class="mandatory-tag" id="split-focus">Focus Area</span>
-                <div id="daily-exercises">
-                    </div>
-                
-                <button id="complete-btn" onclick="markWorkoutComplete()">Mark Workout Complete ✅</button>
+                <span class="mandatory-tag" id="split-focus">Working Sets</span>
+                <div id="daily-exercises"></div>
+                <button id="complete-btn">Mark Workout Complete ✅</button>
             </div>
         </section>
 
         <section class="card">
             <h2>Workout History</h2>
             <div class="calendar-header">
-                <button onclick="changeMonth(-1)">&#8592; Prev</button>
+                <button id="prev-month">&#8592; Prev</button>
                 <h3 id="cal-month-year" style="margin: 0; font-size: 1.1rem;"></h3>
-                <button onclick="changeMonth(1)">Next &#8594;</button>
+                <button id="next-month">Next &#8594;</button>
             </div>
-            <div class="calendar-grid" id="calendar-grid">
-                </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
         </section>
 
         <section class="card">
@@ -249,439 +182,455 @@
                         <option value="eggs">Boiled Eggs (3 whole)</option>
                     </select>
                 </div>
-                <div class="input-group">
-                    <label>Quantity</label>
-                    <input type="number" id="food-amount" value="1">
-                </div>
+                <div class="input-group"><label>Quantity</label><input type="number" id="food-amount" value="1"></div>
             </div>
             <button onclick="addFood()">Add Entry</button>
-
-            <table id="food-table">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Qty</th>
-                        <th>Cals</th>
-                        <th>Prot</th>
-                    </tr>
-                </thead>
-                <tbody id="food-list">
-                    <!-- Items appended here -->
-                </tbody>
-                <tfoot>
-                    <tr class="total-row">
-                        <td>Total</td>
-                        <td></td>
-                        <td id="total-cals">0</td>
-                        <td id="total-prot">0</td>
-                    </tr>
-                </tfoot>
-            </table>
+            <table id="food-table"><thead><tr><th>Item</th><th>Qty</th><th>Cals</th><th>Prot</th></tr></thead><tbody id="food-list"></tbody><tfoot><tr class="total-row"><td>Total</td><td></td><td id="total-cals">0</td><td id="total-prot">0</td></tr></tfoot></table>
         </section>
 
         <section class="card">
             <h2>Bulking Calculator</h2>
             <div class="input-row">
-                <div class="input-group">
-                    <label>Current Weight (kg)</label>
-                    <input type="number" id="weight" value="49">
-                </div>
-                <div class="input-group">
-                    <label>Target Weight (kg)</label>
-                    <input type="number" id="target-weight" value="60">
-                </div>
+                <div class="input-group"><label>Current Weight (kg)</label><input type="number" id="weight" value="49"></div>
+                <div class="input-group"><label>Target Weight (kg)</label><input type="number" id="target-weight" value="60"></div>
             </div>
             <div class="input-row">
-                <div class="input-group">
-                    <label>Height (cm)</label>
-                    <input type="number" id="height" value="180">
-                </div>
-                <div class="input-group">
-                    <label>Age</label>
-                    <input type="number" id="age" value="20">
-                </div>
+                <div class="input-group"><label>Height (cm)</label><input type="number" id="height" value="180"></div>
+                <div class="input-group"><label>Age</label><input type="number" id="age" value="20"></div>
             </div>
             <div class="input-group">
                 <label>Activity Level</label>
-                <select id="activity">
-                    <option value="1.2">Sedentary (Student/Desk Job)</option>
-                    <option value="1.375" selected>Moderate (Training 3-4 days)</option>
-                    <option value="1.55">High (Training 6-7 days)</option>
-                </select>
+                <select id="activity"><option value="1.2">Sedentary (Student/Desk Job)</option><option value="1.375" selected>Moderate (Training 3-4 days)</option><option value="1.55">High (Training 6-7 days)</option></select>
             </div>
             <button onclick="calculateNeeds()">Calculate Bulking Needs</button>
-
-            <div id="needs-result" class="result-box">
-                <div class="stat-row">
-                    <span>Daily Calories (Surplus):</span>
-                    <span class="stat-val" id="cal-result">--</span>
-                </div>
-                <div class="stat-row">
-                    <span>Protein Goal:</span>
-                    <span class="stat-val" id="prot-result">--</span>
-                </div>
-                <div class="stat-row">
-                    <span>Liquid Goal (Water):</span>
-                    <span class="stat-val" id="water-result">--</span>
-                </div>
-            </div>
+            <div id="needs-result" class="result-box"><div class="stat-row"><span>Daily Calories (Surplus):</span><span class="stat-val" id="cal-result">--</span></div><div class="stat-row"><span>Protein Goal:</span><span class="stat-val" id="prot-result">--</span></div><div class="stat-row"><span>Liquid Goal (Water):</span><span class="stat-val" id="water-result">--</span></div></div>
         </section>
     </div>
 
+    <div id="videoModal">
+        <div class="modal-inner">
+            <div class="modal-head"><h3 id="videoTitle" style="font-size:1rem; font-weight:600; margin:0;">Exercise Demo</h3><button onclick="closeVideoModal()" style="width:auto; margin:0; background:white; color:var(--text-primary); border:1px solid #d1d5db; padding:0.4rem 0.8rem;">✕</button></div>
+            <div class="modal-body"><video id="videoPlayer" controls playsinline style="display:none;"></video><iframe id="ytFrame" style="display:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><div id="videoFallback" style="display:none; padding:2rem; text-align:center; color:white;">Video file not found.</div></div>
+            <div class="modal-foot"><p id="videoDesc" style="font-size:0.875rem; color:var(--text-secondary); margin:0 0 0.75rem;"></p><a id="videoLink" target="_blank" class="video-link">Open on YouTube ↗</a></div>
+        </div>
+    </div>
+    <div id="toast" class="toast"></div>
 
+<script>
+    // ===== 1. EMBEDDED GOOGLE SHEET LINK — directly in code =====
+    const GOOGLE_SCRIPT_URL = "https://docs.google.com/spreadsheets/d/1ShxPmWObew_2xrOidgkxuT-gIL4nI16saK74o0FKGm8/edit?usp=sharing";
 
-    <script>
-        // --- GOOGLE SHEETS SETUP (Replace URL once created) ---
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzxxSZ78Zvy4f6bVm9tZpjYetIN3DvVCeSTpHpZxNhePnd_OS8g2IW5aPNB4PhfhLOn/exec";
+    const LS_TIMER = 'massTimer_v2';
+    const LS_CATEGORY = 'massCategory_v2';
 
-        // --- DATA: Database ---
-        const foodDB = {
-            pb_shake: { name: "900-Cal Vegan Shake", unit: "batch", cal: 900, pro: 25 },
-            chana_aloo: { name: "Chana + Aloo + Oil", unit: "meal", cal: 450, pro: 15 },
-            soya_rice: { name: "Soya Chunks + Rice", unit: "meal", cal: 600, pro: 30 },
-            soya: { name: "Soya Chunks", unit: "x50g", cal: 170, pro: 26 },
-            chana: { name: "Kala Chana", unit: "bowl", cal: 200, pro: 10 },
-            peanut_butter: { name: "Peanut Butter", unit: "tbsp", cal: 95, pro: 4 },
-            rice: { name: "White Rice", unit: "cup", cal: 200, pro: 4 },
-            banana: { name: "Banana", unit: "pc", cal: 105, pro: 1.3 },
-            potato: { name: "Boiled Potato", unit: "pc", cal: 130, pro: 3 },
-            oil: { name: "Cooking Oil", unit: "tbsp", cal: 120, pro: 0 },
-            eggs: { name: "Boiled Eggs", unit: "x3", cal: 210, pro: 18 }
-        };
+    const foodDB = {
+        pb_shake: { name: "900-Cal Vegan Shake", unit: "batch", cal: 900, pro: 25 },
+        chana_aloo: { name: "Chana + Aloo + Oil", unit: "meal", cal: 450, pro: 15 },
+        soya_rice: { name: "Soya Chunks + Rice", unit: "meal", cal: 600, pro: 30 },
+        soya: { name: "Soya Chunks", unit: "x50g", cal: 170, pro: 26 },
+        chana: { name: "Kala Chana", unit: "bowl", cal: 200, pro: 10 },
+        peanut_butter: { name: "Peanut Butter", unit: "tbsp", cal: 95, pro: 4 },
+        rice: { name: "White Rice", unit: "cup", cal: 200, pro: 4 },
+        banana: { name: "Banana", unit: "pc", cal: 105, pro: 1.3 },
+        potato: { name: "Boiled Potato", unit: "pc", cal: 130, pro: 3 },
+        oil: { name: "Cooking Oil", unit: "tbsp", cal: 120, pro: 0 },
+        eggs: { name: "Boiled Eggs", unit: "x3", cal: 210, pro: 18 }
+    };
 
-        // --- NEW WORKOUT PLAN (Strictly Sequential) ---
-        const workouts = [
-            {
-                name: "Day 1", focus: "Chest & Triceps",
-                exercises: [
-                    { name: "Barbell Bench Press", sets: "3 Sets", reps: "8-12", video: "videos/bench-press.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Incline - Angle Pushup", sets: "3 Sets", reps: "8-12", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Flat Flyes", sets: "3 Sets", reps: "8-12", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Barbell Skull Crushers", sets: "3 Sets", reps: "8-12", video: "videos/skull-crushers.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Overhead Tricep Extention", sets: "3 Sets", reps: "8-12", video: "videos/overhead-tricep.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Close Grip Bench Press", sets: "3 Sets", reps: "8-12", video: "videos/close-grip-bench.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "videos/skull-crushers.mp4" }
-                ]
-            },
-            {
-                name: "Day 2", focus: "Back & Biceps",
-                exercises: [
-                    { name: "Pull-ups", sets: "3 Sets", reps: "8-12", video: "videos/pull-ups.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Barbell Bent - Over Rows", sets: "3 Sets", reps: "8-12", video: "videos/bent-over-row.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Pullovers", sets: "3 Sets", reps: "8-12", video: "videos/pullovers.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Strict Barbell Curls", sets: "3 Sets", reps: "8-12", video: "videos/barbell-curls.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Hammer Curls", sets: "3 Sets", reps: "8-12", video: "videos/hammer-curls.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Deadlift", sets: "3 Sets", reps: "8-12", video: "videos/deadlift.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Preacher Curl", sets: "3 Sets", reps: "8-12", video: "videos/preacher-curl.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Curls", sets: "3 Sets", reps: "8-12", video: "videos/barbell-curls.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "videos/skull-crushers.mp4" }
-                ]
-            },
-            {
-                name: "Day 3", focus: "Shoulders & Legs",
-                exercises: [
-                    { name: "Barbell Overhead Press (Military Press)", sets: "3 Sets", reps: "8-12", video: "videos/overhead-press.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Barbell Pause Squats", sets: "3 Sets", reps: "8-12", video: "videos/squats.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Lateral Raises", sets: "3 Sets", reps: "8-12", video: "videos/lateral-raises.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Goblet Squats", sets: "3 Sets", reps: "8-12", video: "videos/goblet-squats.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Hanging Leg Raise", sets: "3 Sets", reps: "8-12", video: "videos/hanging-leg-raise.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Front Raise", sets: "3 Sets", reps: "8-12", video: "videos/front-raise.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Heavy Squats", sets: "3 Sets", reps: "8-12", video: "videos/squats.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "videos/skull-crushers.mp4" }
-                ]
-            },
-            {
-                name: "Day 4", focus: "Triceps & Chest",
-                exercises: [
-                    { name: "Close-Grip barbell Bench Press", sets: "3 Sets", reps: "8-12", video: "videos/close-grip-bench.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Tricep Kickbacks", sets: "3 Sets", reps: "8-12", video: "videos/tricep-kickbacks.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Deficit Push ups (Dificit Push ups)", sets: "3 Sets", reps: "8-12", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Floor Press", sets: "3 Sets", reps: "8-12", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Fly", sets: "3 Sets", reps: "8-12", video: "videos/skull-crushers.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "videos/skull-crushers.mp4" }
-                ]
-            },
-            {
-                name: "Day 5", focus: "Biceps & Back",
-                exercises: [
-                    { name: "Underhand Chin-ups", sets: "3 Sets", reps: "8-12", video: "videos/pull-ups.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Concentration Curls", sets: "3 Sets", reps: "8-12", video: "videos/hammer-curls.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Barbell Reverse Curls", sets: "3 Sets", reps: "8-12", video: "videos/barbell-curls.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Barbell Shrugs", sets: "3 Sets", reps: "8-12", video: "videos/bent-over-row.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Barbell Bent Over Row", sets: "3 Sets", reps: "8-12", video: "videos/bent-over-row.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Preacher Curl", sets: "3 Sets", reps: "8-12", video: "videos/preacher-curl.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "videos/skull-crushers.mp4" }
-                ]
-            },
-            {
-                name: "Day 6", focus: "Leg & Shoulder",
-                exercises: [
-                    { name: "Barbell Romanian Deadlifts", sets: "3 Sets", reps: "8-12", video: "videos/deadlift.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Barbell Front Squats", sets: "3 Sets", reps: "8-12", video: "videos/squats.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Barbell Upright Rows", sets: "3 Sets", reps: "8-12", video: "videos/overhead-press.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Arnold Press", sets: "3 Sets", reps: "8-12", video: "videos/lateral-raises.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Rear Delt Fly", sets: "3 Sets", reps: "8-12", video: "videos/front-raise.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Lateral Raise", sets: "3 Sets", reps: "8-12", video: "videos/lateral-raises.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Overhead Press", sets: "3 Sets", reps: "8-12", video: "videos/overhead-press.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/incline-pushup.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", video: "videos/flat-flyes.mp4", procedure: "Lie on a flat bench with feet planted firmly. Grip the barbell slightly wider than shoulder-width. Unrack the bar and lower it slowly to the middle of your chest while keeping elbows at a 45° angle. Pause briefly, then press the bar explosively back to the starting position. Keep your shoulder blades retracted throughout." },
-                    { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", video: "videos/skull-crushers.mp4" }
-                ]
-            }
-        ];
-
-        // --- STATE VARIABLES ---
-        let currentDate = new Date();
-        let calMonth = currentDate.getMonth();
-        let calYear = currentDate.getFullYear();
-        let currentWorkoutIndex = parseInt(localStorage.getItem('massWorkoutIndex')) || 0;
-        let activeWorkoutName = ""; 
-        let activeWorkoutFocus = "";
-        let workoutHistory = JSON.parse(localStorage.getItem('massWorkoutHistory')) || {};
-
-        // --- INIT & WORKOUT LOGIC ---
-        async function init() {
-            await fetchWorkoutHistoryFromSheet();
-            renderTodayWorkout();
-            renderCalendar();
+    const workouts = [
+        {
+            name: "Day 1", focus: "Chest & Triceps", type: "Push - Chest & Triceps",
+            exercises: [
+                { name: "Barbell Bench Press", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell, Bench", video: "videos/bench-press.mp4", videoUrl: "https://www.youtube.com/watch?v=rT7DgCr-3pg", procedure: "Flat bench, feet planted. Grip slightly wider than shoulder. Lower to mid-chest, elbows 45°, pause, press explosively." },
+                { name: "Dumbbell Incline - Angle Pushup", sets: "3 Sets", reps: "8-12", category: "alternative", equipment: "Dumbbells, Incline", alternativeFor: "Barbell Bench Press", video: "videos/incline-pushup.mp4", videoUrl: "https://www.youtube.com/watch?v=SrqOu55lrYU", procedure: "Incline variation for upper chest. Hands on dumbbells for deficit." },
+                { name: "Dumbbell Flat Flyes", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Dumbbells", video: "videos/flat-flyes.mp4", videoUrl: "https://www.youtube.com/watch?v=J2Dn9ul3u0s", procedure: "Slight elbow bend, chest stretch, squeeze back." },
+                { name: "Barbell Skull Crushers", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/skull-crushers.mp4", videoUrl: "https://www.youtube.com/watch?v=ir5PsbniVSc", procedure: "Lying triceps extension, elbows tucked." },
+                { name: "Dumbbell Overhead Tricep Extention", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Dumbbell", video: "videos/overhead-tricep.mp4", videoUrl: "https://www.youtube.com/watch?v=goaR4a3uNRE", procedure: "Overhead single dumbbell, elbows close." },
+                { name: "Close Grip Bench Press", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/close-grip-bench.mp4", videoUrl: "https://www.youtube.com/watch?v=nEF0bv2FW94" },
+                { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", category: "equipment", equipment: "Barbell", video: "videos/incline-pushup.mp4", videoUrl: "https://www.youtube.com/watch?v=qM6X6aOIs24" },
+                { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", category: "equipment", equipment: "Dumbbells", video: "videos/flat-flyes.mp4", videoUrl: "https://www.youtube.com/watch?v=-2T0PdT0ZDQ" },
+                { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", category: "no-equipment", equipment: "Plates", video: "videos/skull-crushers.mp4", videoUrl: "https://www.youtube.com/results?search_query=Crush+Grip+Static+Hold" }
+            ]
+        },
+        {
+            name: "Day 2", focus: "Back & Biceps",
+            exercises: [
+                { name: "Pull-ups", sets: "3 Sets", reps: "8-12", category: "no-equipment", equipment: "Bar", video: "videos/pull-ups.mp4", videoUrl: "https://www.youtube.com/watch?v=eGo4IYlbE5g" },
+                { name: "Barbell Bent - Over Rows", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/bent-over-row.mp4", videoUrl: "https://www.youtube.com/watch?v=FWJR5Ve8bnQ" },
+                { name: "Dumbbell Pullovers", sets: "3 Sets", reps: "8-12", category: "alternative", equipment: "Dumbbell", alternativeFor: "Lat Pulldown", video: "videos/pullovers.mp4", videoUrl: "https://www.youtube.com/watch?v=4V1uXVX1zIk" },
+                { name: "Strict Barbell Curls", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/barbell-curls.mp4", videoUrl: "https://www.youtube.com/watch?v=LY1V6rSe6XU" },
+                { name: "Dumbbell Hammer Curls", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Dumbbells", video: "videos/hammer-curls.mp4", videoUrl: "https://www.youtube.com/watch?v=TwD-YGVP4Bk" },
+                { name: "Deadlift", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/deadlift.mp4", videoUrl: "https://www.youtube.com/watch?v=ytGaGIn3SjE" },
+                { name: "Preacher Curl", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Preacher Bench", video: "videos/preacher-curl.mp4", videoUrl: "https://www.youtube.com/watch?v=CPD-j88Fe2E" },
+                { name: "Dumbbell Curls", sets: "3 Sets", reps: "8-12", category: "alternative", equipment: "Dumbbells", alternativeFor: "Barbell Curl", video: "videos/barbell-curls.mp4", videoUrl: "https://www.youtube.com/watch?v=sqNwDkJlVHg" },
+                { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", category: "equipment", equipment: "Barbell", video: "videos/incline-pushup.mp4", videoUrl: "https://www.youtube.com/watch?v=qM6X6aOIs24" },
+                { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", category: "equipment", equipment: "Dumbbells", video: "videos/flat-flyes.mp4", videoUrl: "https://www.youtube.com/watch?v=-2T0PdT0ZDQ" },
+                { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", category: "no-equipment", equipment: "Plates", video: "videos/skull-crushers.mp4", videoUrl: "https://www.youtube.com/results?search_query=Static+Hold" }
+            ]
+        },
+        {
+            name: "Day 3", focus: "Shoulders & Legs",
+            exercises: [
+                { name: "Barbell Overhead Press", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/overhead-press.mp4", videoUrl: "https://www.youtube.com/watch?v=qEwKCR5JCog" },
+                { name: "Barbell Pause Squats", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/squats.mp4", videoUrl: "https://www.youtube.com/watch?v=ultWZbUMPL8" },
+                { name: "Dumbbell Lateral Raises", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Dumbbells", video: "videos/lateral-raises.mp4", videoUrl: "https://www.youtube.com/watch?v=3VcKaXpzq04" },
+                { name: "Goblet Squats", sets: "3 Sets", reps: "8-12", category: "alternative", equipment: "Dumbbell/Backpack", alternativeFor: "Back Squat", video: "videos/goblet-squats.mp4", videoUrl: "https://www.youtube.com/watch?v=MeIiIdhvXT4" },
+                { name: "Hanging Leg Raise", sets: "3 Sets", reps: "8-12", category: "no-equipment", equipment: "Bar", video: "videos/hanging-leg-raise.mp4", videoUrl: "https://www.youtube.com/watch?v=Pr1ieGZ5atk" },
+                { name: "Front Raise", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Dumbbells", video: "videos/front-raise.mp4", videoUrl: "https://www.youtube.com/watch?v=-t7fuZ0KhDA" },
+                { name: "Heavy Squats", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/squats.mp4", videoUrl: "https://www.youtube.com/watch?v=ultWZbUMPL8" },
+                { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", category: "equipment", equipment: "Barbell", video: "videos/incline-pushup.mp4", videoUrl: "https://www.youtube.com/watch?v=qM6X6aOIs24" },
+                { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", category: "equipment", equipment: "Dumbbells", video: "videos/flat-flyes.mp4", videoUrl: "https://www.youtube.com/watch?v=-2T0PdT0ZDQ" },
+                { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", category: "no-equipment", equipment: "Bodyweight", video: "videos/skull-crushers.mp4", videoUrl: "https://www.youtube.com/results?search_query=Crush+Grip" }
+            ]
+        },
+        {
+            name: "Day 4", focus: "Triceps & Chest",
+            exercises: [
+                { name: "Close-Grip barbell Bench Press", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/close-grip-bench.mp4", videoUrl: "https://www.youtube.com/watch?v=nEF0bv2FW94" },
+                { name: "Dumbbell Tricep Kickbacks", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Dumbbells", video: "videos/tricep-kickbacks.mp4", videoUrl: "https://www.youtube.com/watch?v=6SS6K3lAwZ8" },
+                { name: "Deficit Push ups", sets: "3 Sets", reps: "8-12", category: "no-equipment", equipment: "Books", video: "videos/incline-pushup.mp4", videoUrl: "https://www.youtube.com/watch?v=IODxDxX7oi4" },
+                { name: "Dumbbell Floor Press", sets: "3 Sets", reps: "8-12", category: "alternative", equipment: "Dumbbells", alternativeFor: "Bench Press", video: "videos/flat-flyes.mp4", videoUrl: "https://www.youtube.com/watch?v=uUGDRwlfkN8" },
+                { name: "Dumbbell Fly", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Dumbbells", video: "videos/skull-crushers.mp4", videoUrl: "https://www.youtube.com/watch?v=J2Dn9ul3u0s" },
+                { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", category: "equipment", equipment: "Barbell", video: "videos/incline-pushup.mp4", videoUrl: "https://www.youtube.com/watch?v=qM6X6aOIs24" },
+                { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", category: "equipment", equipment: "Dumbbells", video: "videos/flat-flyes.mp4", videoUrl: "https://www.youtube.com/watch?v=-2T0PdT0ZDQ" },
+                { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", category: "no-equipment", equipment: "Plates", video: "videos/skull-crushers.mp4", videoUrl: "https://www.youtube.com/results?search_query=Static+Hold" }
+            ]
+        },
+        {
+            name: "Day 5", focus: "Biceps & Back",
+            exercises: [
+                { name: "Underhand Chin-ups", sets: "3 Sets", reps: "8-12", category: "no-equipment", equipment: "Bar", video: "videos/pull-ups.mp4", videoUrl: "https://www.youtube.com/watch?v=64Zs0Xfjl3Q" },
+                { name: "Dumbbell Concentration Curls", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Dumbbell", video: "videos/hammer-curls.mp4", videoUrl: "https://www.youtube.com/watch?v=0AUGkch3gqU" },
+                { name: "Barbell Reverse Curls", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/barbell-curls.mp4", videoUrl: "https://www.youtube.com/watch?v=nRgxJ4yKy8E" },
+                { name: "Barbell Shrugs", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/bent-over-row.mp4", videoUrl: "https://www.youtube.com/watch?v=cJRVVxmytaM" },
+                { name: "Barbell Bent Over Row", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/bent-over-row.mp4", videoUrl: "https://www.youtube.com/watch?v=FWJR5Ve8bnQ" },
+                { name: "Preacher Curl", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Preacher", video: "videos/preacher-curl.mp4", videoUrl: "https://www.youtube.com/watch?v=CPD-j88Fe2E" },
+                { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", category: "equipment", equipment: "Barbell", video: "videos/incline-pushup.mp4", videoUrl: "https://www.youtube.com/watch?v=qM6X6aOIs24" },
+                { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", category: "equipment", equipment: "Dumbbells", video: "videos/flat-flyes.mp4", videoUrl: "https://www.youtube.com/watch?v=-2T0PdT0ZDQ" },
+                { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", category: "no-equipment", equipment: "Plates", video: "videos/skull-crushers.mp4", videoUrl: "https://www.youtube.com/results?search_query=Crush+Grip" }
+            ]
+        },
+        {
+            name: "Day 6", focus: "Leg & Shoulder",
+            exercises: [
+                { name: "Barbell Romanian Deadlifts", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/deadlift.mp4", videoUrl: "https://www.youtube.com/watch?v=ytGaGIn3SjE" },
+                { name: "Barbell Front Squats", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/squats.mp4", videoUrl: "https://www.youtube.com/watch?v=4uM1u5qh6Wc" },
+                { name: "Barbell Upright Rows", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/overhead-press.mp4", videoUrl: "https://www.youtube.com/watch?v=amCU-ziHITM" },
+                { name: "Dumbbell Arnold Press", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Dumbbells", video: "videos/lateral-raises.mp4", videoUrl: "https://www.youtube.com/watch?v=6Z15_WdXmVw" },
+                { name: "Rear Delt Fly", sets: "3 Sets", reps: "8-12", category: "alternative", equipment: "Dumbbells/Books", alternativeFor: "Reverse Fly", video: "videos/front-raise.mp4", videoUrl: "https://www.youtube.com/watch?v=p1oyA-Cit3k" },
+                { name: "Lateral Raise", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Dumbbells", video: "videos/lateral-raises.mp4", videoUrl: "https://www.youtube.com/watch?v=3VcKaXpzq04" },
+                { name: "Overhead Press", sets: "3 Sets", reps: "8-12", category: "equipment", equipment: "Barbell", video: "videos/overhead-press.mp4", videoUrl: "https://www.youtube.com/watch?v=qEwKCR5JCog" },
+                { name: "Bench-Supported Barbell Wrist Curls", sets: "3 Sets", reps: "12-15", category: "equipment", equipment: "Barbell", video: "videos/incline-pushup.mp4", videoUrl: "https://www.youtube.com/watch?v=qM6X6aOIs24" },
+                { name: "Dumbbell Reverse Wrist Curls", sets: "3 Sets", reps: "12-15", category: "equipment", equipment: "Dumbbells", video: "videos/flat-flyes.mp4", videoUrl: "https://www.youtube.com/watch?v=-2T0PdT0ZDQ" },
+                { name: "The Static Hold / Crush Grip", sets: "3 Sets", reps: "30-45 sec", category: "no-equipment", equipment: "Bodyweight", video: "videos/skull-crushers.mp4", videoUrl: "https://www.youtube.com/results?search_query=Crush+Grip" }
+            ]
         }
+    ];
 
-        async function fetchWorkoutHistoryFromSheet() {
-            if (GOOGLE_SCRIPT_URL.includes("YOUR_GOOGLE_APP_SCRIPT_URL_HERE")) return;
-            try {
-                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=getHistory");
-                const data = await res.json();
-                if (data && data.history) {
-                    workoutHistory = data.history;
-                    localStorage.setItem('massWorkoutHistory', JSON.stringify(workoutHistory));
-                }
-            } catch (e) {
-                console.log("Could not fetch from Google Sheets, using local data.");
-            }
-        }
+    let currentDate = new Date();
+    let calMonth = currentDate.getMonth();
+    let calYear = currentDate.getFullYear();
+    let currentWorkoutIndex = parseInt(localStorage.getItem('massWorkoutIndex')) || 0;
+    let activeWorkoutName = ""; 
+    let activeWorkoutFocus = "";
+    let workoutHistory = JSON.parse(localStorage.getItem('massWorkoutHistory')) || {};
+    let selectedCategory = localStorage.getItem(LS_CATEGORY) || 'all';
+    let timerState = JSON.parse(localStorage.getItem(LS_TIMER) || 'null') || { remaining: 5400, elapsed: 0, running: false, lastTick: 0, startedAt: null };
 
-        function renderTodayWorkout() {
-            document.getElementById('date-display').innerText = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            
-            const todayStr = getLocalDateString(currentDate);
-            const btn = document.getElementById('complete-btn');
+    function fmtClock(s){ const m=Math.floor(s/60).toString().padStart(2,'0'); const sec=Math.floor(s%60).toString().padStart(2,'0'); return `${m}:${sec}`; }
+    function showToast(msg, ms=3000){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), ms); }
+    function ytEmbed(url){ try{ const u=new URL(url); if(u.hostname.includes('youtube.com') && u.pathname.includes('results')) return null; let id=''; if(u.hostname.includes('youtu.be')) id=u.pathname.slice(1); else id=u.searchParams.get('v'); if(!id) return null; return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`; }catch{ return null; } }
 
-            if (workoutHistory[todayStr]) {
-                // If a workout is already logged today, show a completion state and prep for tomorrow.
-                const hist = workoutHistory[todayStr];
-                
-                // Fallback for older history data structure, if necessary
-                const displayName = hist.name ? hist.name : hist;
-                const displayFocus = hist.bodyPart ? hist.bodyPart : "Completed";
+    async function init() {
+        renderWorkoutSelector();
+        bindUI();
+        await fetchWorkoutHistoryFromSheet();
+        await fetchWorkoutsFromSheet();
+        renderTodayWorkout();
+        renderCalendar();
+        updateTimerUI();
+        setInterval(onTimerTick, 500);
+    }
 
-                document.getElementById('day-badge').innerText = `${displayName}: ${displayFocus}`;
-                document.getElementById('split-focus').innerText = "Status";
-                
-                const nextWorkout = workouts[currentWorkoutIndex]; // This index was already advanced when marked complete
-                
-                const list = document.getElementById('daily-exercises');
-                list.innerHTML = `
-                    <div style="padding:1.5rem 0; color:var(--text-secondary); text-align:center;">
-                        <h3 style="color:var(--text-primary); margin-bottom: 0.5rem;">You crushed today's workout!</h3>
-                        <p>Rest up. Next in your sequence will be:<br><strong>${nextWorkout.name} - ${nextWorkout.focus}</strong></p>
-                    </div>
-                `;
-
-                btn.innerText = "Workout Completed Today ✅";
-                btn.disabled = true;
-
-            } else {
-                // Render the next pending workout
-                const workoutToRender = workouts[currentWorkoutIndex];
-                activeWorkoutName = workoutToRender.name;
-                activeWorkoutFocus = workoutToRender.focus;
-
-                document.getElementById('day-badge').innerText = activeWorkoutName + ": " + activeWorkoutFocus;
-                document.getElementById('split-focus').innerText = "Working Sets";
-                
-                const list = document.getElementById('daily-exercises');
-                list.innerHTML = ""; 
-                workoutToRender.exercises.forEach(ex => {
-                    const div = document.createElement('div');
-                    div.className = 'exercise-item';
-                    div.innerHTML = `
-                        <div class="exercise-left">
-                            <span class="exercise-name">${ex.name}</span>
-                            <div class="procedure">${ex.procedure || ''}</div>
-                        </div>
-                        <span class="exercise-meta">${ex.sets} x ${ex.reps}</span>
-                    `;
-                    list.appendChild(div);
-                });
-
-                btn.innerText = "Mark Workout Complete ✅";
-                btn.disabled = false;
-            }
-        }
-
-        function getLocalDateString(date) {
-            const tzoffset = date.getTimezoneOffset() * 60000;
-            return (new Date(date - tzoffset)).toISOString().split('T')[0];
-        }
-
-        // --- VIDEO MODAL ---
-        function showVideo(videoUrl, exerciseName) {
-            const modal = document.getElementById('videoModal');
-            const player = document.getElementById('videoPlayer');
-            player.src = videoUrl;
-            modal.style.display = 'block';
-            player.play();
-        }
-
-        function closeVideoModal() {
-            const modal = document.getElementById('videoModal');
-            const player = document.getElementById('videoPlayer');
-            player.pause();
-            player.src = '';
-            modal.style.display = 'none';
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('videoModal');
-            if (event.target === modal) {
-                closeVideoModal();
-            }
-        }
-
-        // --- MARK COMPLETE & GOOGLE SHEETS SYNC ---
-        function markWorkoutComplete() {
-            const todayStr = getLocalDateString(currentDate);
-            const timestamp = new Date().toLocaleTimeString('en-US'); // Records the exact time of completion
-            
-            // 1. Save data locally
-            workoutHistory[todayStr] = {
-                name: activeWorkoutName,
-                bodyPart: activeWorkoutFocus,
-                timeCompleted: timestamp
+    function bindUI(){
+        document.getElementById('timer-start').onclick=startTimer;
+        document.getElementById('timer-pause').onclick=pauseTimer;
+        document.getElementById('timer-reset').onclick=resetTimer;
+        document.getElementById('complete-btn').onclick=markWorkoutComplete;
+        document.getElementById('prev-month').onclick=()=>changeMonth(-1);
+        document.getElementById('next-month').onclick=()=>changeMonth(1);
+        document.getElementById('workout-type-select').onchange=(e)=>{ const idx=parseInt(e.target.value); if(!isNaN(idx)){ currentWorkoutIndex=idx; localStorage.setItem('massWorkoutIndex', currentWorkoutIndex); renderTodayWorkout(); showToast(`Switched to ${workouts[idx].name}`);} };
+        document.querySelectorAll('.cat-btn').forEach(b=>{
+            if(b.dataset.cat===selectedCategory){ b.classList.remove('inactive'); b.classList.add('active'); }
+            b.onclick=()=>{
+                selectedCategory=b.dataset.cat; localStorage.setItem(LS_CATEGORY, selectedCategory);
+                document.querySelectorAll('.cat-btn').forEach(x=>{ x.classList.remove('active'); x.classList.add('inactive'); });
+                b.classList.remove('inactive'); b.classList.add('active');
+                renderTodayWorkout();
             };
-            localStorage.setItem('massWorkoutHistory', JSON.stringify(workoutHistory));
-            
-            // 2. Advance the sequential workout tracker index
-            currentWorkoutIndex = (currentWorkoutIndex + 1) % workouts.length;
-            localStorage.setItem('massWorkoutIndex', currentWorkoutIndex);
-            
-            // 3. Update the UI Immediately
-            renderTodayWorkout();
-            renderCalendar(); 
+        });
+        document.getElementById('videoModal').onclick=(e)=>{ if(e.target.id==='videoModal') closeVideoModal(); };
+    }
 
-            // 4. Send rich payload to Google Sheets (Date, Time, Workout Day, Body Part)
-            if(GOOGLE_SCRIPT_URL !== "https://docs.google.com/spreadsheets/d/1ShxPmWObew_2xrOidgkxuT-gIL4nI16saK74o0FKGm8/edit?usp=sharing") {
-                fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        date: todayStr, 
-                        time: timestamp,
-                        workout: activeWorkoutName,
-                        bodyPart: activeWorkoutFocus
-                    })
-                }).catch(err => console.log('Google Sheets sync error:', err));
+    function renderWorkoutSelector(){
+        const sel=document.getElementById('workout-type-select');
+        sel.innerHTML=workouts.map((w,i)=>`<option value="${i}" ${i===currentWorkoutIndex?'selected':''}>${w.name}: ${w.focus}</option>`).join('');
+    }
+
+    function startTimer(){ if(timerState.running) return; timerState.running=true; timerState.lastTick=Date.now(); timerState.startedAt=timerState.startedAt||Date.now(); localStorage.setItem(LS_TIMER, JSON.stringify(timerState)); updateTimerUI(); showToast('Timer started — 90 min limit'); }
+    function pauseTimer(){ if(!timerState.running) return; const now=Date.now(); const delta=(now-timerState.lastTick)/1000; timerState.remaining=Math.max(0, timerState.remaining-delta); timerState.elapsed+=delta; timerState.running=false; localStorage.setItem(LS_TIMER, JSON.stringify(timerState)); updateTimerUI(); }
+    function resetTimer(){ if(confirm('Reset timer to 90:00?')){ timerState={remaining:5400, elapsed:0, running:false, lastTick:0, startedAt:null}; localStorage.setItem(LS_TIMER, JSON.stringify(timerState)); updateTimerUI(); } }
+    function onTimerTick(){ if(!timerState.running) return; const now=Date.now(); const delta=(now-timerState.lastTick)/1000; timerState.lastTick=now; timerState.remaining=Math.max(0, timerState.remaining-delta); timerState.elapsed+=delta; if(timerState.remaining<=0){ timerState.running=false; timerState.remaining=0; showToast('90 minutes reached!'); } updateTimerUI(false); if(Math.floor(timerState.elapsed)%5===0) localStorage.setItem(LS_TIMER, JSON.stringify(timerState)); }
+    function updateTimerUI(){
+        const rem=Math.ceil(timerState.remaining);
+        document.getElementById('timer-display').textContent=fmtClock(rem);
+        const bar=document.getElementById('timer-bar-fill'); bar.style.width=(rem/5400*100)+'%';
+        document.getElementById('timer-start').textContent=timerState.running?'● Active':'▶ Start';
+    }
+
+    async function fetchWorkoutHistoryFromSheet() {
+        try {
+            const res = await fetch(GOOGLE_SCRIPT_URL + "?action=getHistory");
+            const data = await res.json();
+            if(data && data.history){
+                workoutHistory = {...workoutHistory, ...data.history};
+                localStorage.setItem('massWorkoutHistory', JSON.stringify(workoutHistory));
+            } else if(data && data.logs){
+                const mapped={};
+                data.logs.forEach(l=>{
+                    if(!l.Date) return;
+                    const iso = l.Date.includes('T')? l.Date.slice(0,10): l.Date;
+                    mapped[iso] = { name: l.WorkoutType || 'Workout', bodyPart: '', timeCompleted: l.StartTime||'', durationSec: l.DurationSec||0, quality: l.Quality||3 };
+                });
+                workoutHistory = {...workoutHistory, ...mapped};
+                localStorage.setItem('massWorkoutHistory', JSON.stringify(workoutHistory));
             }
-        }
+        } catch (e) { console.log("Using local history"); }
+    }
 
-        // --- CALENDAR LOGIC ---
-        function renderCalendar() {
-            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            document.getElementById('cal-month-year').innerText = `${monthNames[calMonth]} ${calYear}`;
-            
-            const grid = document.getElementById('calendar-grid');
-            grid.innerHTML = `
-                <div class="calendar-day-header">Sun</div><div class="calendar-day-header">Mon</div><div class="calendar-day-header">Tue</div>
-                <div class="calendar-day-header">Wed</div><div class="calendar-day-header">Thu</div><div class="calendar-day-header">Fri</div><div class="calendar-day-header">Sat</div>
-            `;
-
-            const firstDay = new Date(calYear, calMonth, 1).getDay();
-            const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
-            const todayStr = getLocalDateString(new Date());
-
-            // Empty slots before 1st of month
-            for (let i = 0; i < firstDay; i++) {
-                grid.innerHTML += `<div class="calendar-day empty"></div>`;
+    async function fetchWorkoutsFromSheet(){
+        try{
+            const res = await fetch(GOOGLE_SCRIPT_URL + "?action=getWorkouts");
+            const data = await res.json();
+            if(data && data.workouts && data.workouts.length){
+                const sheetExercises = data.workouts.filter(r=>r.Name).map(r=>({
+                    name: r.Name,
+                    sets: r.Sets||"3 Sets",
+                    reps: r.Reps||"8-12",
+                    category: (r.Category||'equipment').toLowerCase().replace(' ','-'),
+                    equipment: r.Equipment||'',
+                    alternativeFor: r.AlternativeFor||'',
+                    video: r.VideoURL||'',
+                    videoUrl: r.VideoURL||`https://www.youtube.com/results?search_query=${encodeURIComponent(r.Name+' exercise')}`,
+                    procedure: r.Description||''
+                }));
+                // If sheet has workouts, add as searchable library — but we keep current Day 1-6 as primary. Category filter will work on sheet data if you switch to Sheet day.
+                if(sheetExercises.length>20){
+                    // optional: push as extra day if not exists
+                    if(!workouts.find(w=>w.name==="Sheet")){
+                        workouts.push({ name: "Sheet", focus: "From Google Sheet", type: "Custom", exercises: sheetExercises });
+                        renderWorkoutSelector();
+                    }
+                }
             }
+        }catch(e){ console.log('getWorkouts failed', e); }
+    }
 
-            for (let i = 1; i <= daysInMonth; i++) {
-                let d = new Date(calYear, calMonth, i);
-                let dateStr = getLocalDateString(d);
-                
-                let isCompleted = workoutHistory[dateStr] ? true : false;
-                let isToday = (dateStr === todayStr) ? "today" : "";
-                let completedClass = isCompleted ? "completed" : "";
-                
-                let dot = isCompleted ? `<br><span class="completed-dot"></span>` : "";
+    function renderTodayWorkout() {
+        document.getElementById('date-display').innerText = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        const todayStr = getLocalDateString(currentDate);
+        const btn = document.getElementById('complete-btn');
 
-                grid.innerHTML += `<div class="calendar-day ${isToday} ${completedClass}">${i}${dot}</div>`;
+        if (workoutHistory[todayStr]) {
+            const hist = workoutHistory[todayStr];
+            const displayName = hist.name ? hist.name : (typeof hist==='string'?hist: hist.WorkoutType||'Workout');
+            document.getElementById('day-badge').innerText = `${displayName}`;
+            document.getElementById('split-focus').innerText = "Completed today";
+            const nextWorkout = workouts[currentWorkoutIndex];
+            const list = document.getElementById('daily-exercises');
+            list.innerHTML = `<div style="padding:1.5rem 0; color:var(--text-secondary); text-align:center;"><h3 style="color:var(--text-primary);">Workout done! 💪</h3><p>Next: <strong>${nextWorkout.name} - ${nextWorkout.focus}</strong></p></div>`;
+            btn.innerText = "Already Completed ✅";
+            btn.disabled = true;
+        } else {
+            const workoutToRender = workouts[currentWorkoutIndex];
+            activeWorkoutName = workoutToRender.name;
+            activeWorkoutFocus = workoutToRender.focus;
+            document.getElementById('day-badge').innerText = activeWorkoutName + ": " + activeWorkoutFocus;
+            document.getElementById('split-focus').innerText = `Working Sets • ${workoutToRender.type||workoutToRender.focus}`;
+            const list = document.getElementById('daily-exercises');
+            list.innerHTML = ""; 
+            let filtered = workoutToRender.exercises;
+            if(selectedCategory!=='all'){
+                filtered = workoutToRender.exercises.filter(ex=> (ex.category||'equipment').toLowerCase()===selectedCategory);
+                if(!filtered.length){ list.innerHTML=`<div style="text-align:center; padding:2rem; color:var(--text-secondary);">No <b>${selectedCategory}</b> exercises in this day. Switch filter to All.</div>`; btn.disabled=false; btn.innerText="Mark Workout Complete ✅"; return; }
             }
+            filtered.forEach(ex => {
+                const div = document.createElement('div');
+                div.className = 'exercise-item';
+                const catClass = ex.category==='equipment'?'cat-equipment':ex.category==='no-equipment'?'cat-no-equipment':'cat-alternative';
+                div.innerHTML = `
+                    <div class="exercise-left">
+                        <span class="exercise-name">${ex.name}<span class="exercise-category ${catClass}">${ex.category||'equipment'}</span></span>
+                        ${ex.equipment?`<div style="font-size:0.75rem; color:var(--text-secondary); margin-top:2px;">${ex.equipment}${ex.alternativeFor?` • Alt for ${ex.alternativeFor}`:''}</div>`:''}
+                        <div class="procedure">${ex.procedure || ''}</div>
+                        <a class="video-link" onclick="openVideoModal('${encodeURIComponent(ex.name)}')">▶ Video Reference</a>
+                    </div>
+                    <span class="exercise-meta">${ex.sets} x ${ex.reps}</span>
+                `;
+                list.appendChild(div);
+            });
+            btn.innerText = `Mark ${workoutToRender.name} Complete ✅`;
+            btn.disabled = false;
+            document.getElementById('workout-type-select').value=currentWorkoutIndex;
         }
+    }
 
-        function changeMonth(dir) {
-            calMonth += dir;
-            if (calMonth < 0) { calMonth = 11; calYear--; }
-            else if (calMonth > 11) { calMonth = 0; calYear++; }
-            renderCalendar();
+    function getLocalDateString(date) {
+        const tzoffset = date.getTimezoneOffset() * 60000;
+        return (new Date(date - tzoffset)).toISOString().split('T')[0];
+    }
+
+    function openVideoModal(encodedName){
+        const name = decodeURIComponent(encodedName);
+        let ex=null;
+        for(const w of workouts){ const f=w.exercises.find(e=>e.name===name); if(f){ ex=f; break; } }
+        if(!ex) return;
+        const modal=document.getElementById('videoModal');
+        document.getElementById('videoTitle').textContent=ex.name;
+        document.getElementById('videoDesc').textContent=(ex.procedure||'') + (ex.category?` • ${ex.category}`:'') + (ex.equipment?` • ${ex.equipment}`:'');
+        document.getElementById('videoLink').href=ex.videoUrl||ex.video||`https://www.youtube.com/results?search_query=${encodeURIComponent(ex.name+' exercise form')}`;
+        const videoPlayer=document.getElementById('videoPlayer');
+        const ytFrame=document.getElementById('ytFrame');
+        const fallback=document.getElementById('videoFallback');
+        videoPlayer.style.display='none'; ytFrame.style.display='none'; fallback.style.display='none';
+        const embed=ytEmbed(ex.videoUrl||'');
+        if(embed){ ytFrame.src=embed; ytFrame.style.display='block'; }
+        else if(ex.video && ex.video.endsWith('.mp4')){ videoPlayer.src=ex.video; videoPlayer.style.display='block'; videoPlayer.play().catch(()=>{}); }
+        else { fallback.style.display='block'; }
+        modal.classList.add('open');
+    }
+    function closeVideoModal(){
+        const modal=document.getElementById('videoModal');
+        const videoPlayer=document.getElementById('videoPlayer');
+        const ytFrame=document.getElementById('ytFrame');
+        videoPlayer.pause(); videoPlayer.src=''; ytFrame.src='';
+        modal.classList.remove('open');
+    }
+
+    function markWorkoutComplete() {
+        const todayStr = getLocalDateString(currentDate);
+        const timestamp = new Date().toLocaleTimeString('en-US');
+        const current = workouts[currentWorkoutIndex];
+        
+        workoutHistory[todayStr] = {
+            name: activeWorkoutName,
+            bodyPart: activeWorkoutFocus,
+            timeCompleted: timestamp,
+            startTime: timerState.startedAt? new Date(timerState.startedAt).toISOString() : new Date().toISOString(),
+            durationSec: Math.floor(timerState.elapsed) || 0,
+            quality: 3,
+            exercises: current ? current.exercises.map(e=>e.name).join(', ') : '',
+            workoutType: current ? (current.type||current.focus) : activeWorkoutFocus,
+        };
+        localStorage.setItem('massWorkoutHistory', JSON.stringify(workoutHistory));
+        currentWorkoutIndex = (currentWorkoutIndex + 1) % workouts.length;
+        localStorage.setItem('massWorkoutIndex', currentWorkoutIndex);
+        timerState={remaining:5400, elapsed:0, running:false, lastTick:0, startedAt:null};
+        localStorage.setItem(LS_TIMER, JSON.stringify(timerState));
+        renderTodayWorkout();
+        renderCalendar(); 
+        updateTimerUI();
+        showToast(`Logged ${activeWorkoutName}`);
+
+        // Auto push to embedded sheet — you check directly on spreadsheet
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                date: todayStr, 
+                time: timestamp,
+                workout: activeWorkoutName,
+                bodyPart: activeWorkoutFocus,
+                durationSec: workoutHistory[todayStr].durationSec,
+                quality: 3,
+                exercises: workoutHistory[todayStr].exercises,
+                workoutType: activeWorkoutName + ": " + activeWorkoutFocus,
+                startTime: workoutHistory[todayStr].startTime
+            })
+        }).catch(()=>{});
+    }
+
+    function renderCalendar() {
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        document.getElementById('cal-month-year').innerText = `${monthNames[calMonth]} ${calYear}`;
+        const grid = document.getElementById('calendar-grid');
+        grid.innerHTML = `<div class="calendar-day-header">Sun</div><div class="calendar-day-header">Mon</div><div class="calendar-day-header">Tue</div><div class="calendar-day-header">Wed</div><div class="calendar-day-header">Thu</div><div class="calendar-day-header">Fri</div><div class="calendar-day-header">Sat</div>`;
+        const firstDay = new Date(calYear, calMonth, 1).getDay();
+        const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+        const todayStr = getLocalDateString(new Date());
+        for (let i = 0; i < firstDay; i++) { grid.innerHTML += `<div class="calendar-day empty"></div>`; }
+        for (let i = 1; i <= daysInMonth; i++) {
+            let d = new Date(calYear, calMonth, i);
+            let dateStr = getLocalDateString(d);
+            let isCompleted = !!workoutHistory[dateStr];
+            let isToday = (dateStr === todayStr) ? "today" : "";
+            let completedClass = isCompleted ? "completed" : "";
+            let dot = isCompleted ? `<br><span class="completed-dot"></span>` : "";
+            grid.innerHTML += `<div class="calendar-day ${isToday} ${completedClass}" data-date="${dateStr}">${i}${dot}</div>`;
         }
+        grid.querySelectorAll('.calendar-day[data-date]').forEach(el=>{
+            el.onclick=()=>{
+                const date=el.dataset.date; const h=workoutHistory[date];
+                if(h){ showToast(`${date}: ${h.name||h.WorkoutType||'Done'}`); }
+                else { showToast(`${date}: no workout`); }
+            };
+        });
+    }
 
-        // --- EXISTING CALCULATORS & FOOD LOG ---
-        function calculateNeeds() {
-            const w = parseFloat(document.getElementById('weight').value);
-            const targetW = parseFloat(document.getElementById('target-weight').value);
-            const h = parseFloat(document.getElementById('height').value);
-            const a = parseFloat(document.getElementById('age').value);
-            const act = parseFloat(document.getElementById('activity').value);
+    function changeMonth(dir) {
+        calMonth += dir;
+        if (calMonth < 0) { calMonth = 11; calYear--; }
+        else if (calMonth > 11) { calMonth = 0; calYear++; }
+        renderCalendar();
+    }
 
-            if (!w || !h || !a || !targetW) { alert("Please fill in all fields."); return; }
-            let bmr = (10 * w) + (6.25 * h) - (5 * a) + 5; 
-            let tdee = bmr * act;
-            let finalCals = tdee + 500;
-            const protein = Math.round(w * 2.2); 
-            const water = ((w * 0.035) + 1.0).toFixed(1);
+    function calculateNeeds() {
+        const w = parseFloat(document.getElementById('weight').value);
+        const targetW = parseFloat(document.getElementById('target-weight').value);
+        const h = parseFloat(document.getElementById('height').value);
+        const a = parseFloat(document.getElementById('age').value);
+        const act = parseFloat(document.getElementById('activity').value);
+        if (!w || !h || !a || !targetW) { alert("Please fill in all fields."); return; }
+        let bmr = (10 * w) + (6.25 * h) - (5 * a) + 5; 
+        let tdee = bmr * act;
+        let finalCals = tdee + 500;
+        const protein = Math.round(w * 2.2); 
+        const water = ((w * 0.035) + 1.0).toFixed(1);
+        document.getElementById('cal-result').innerText = `${Math.round(finalCals)} kcal`;
+        document.getElementById('prot-result').innerText = `${protein}g minimum`;
+        document.getElementById('water-result').innerText = `${water} Liters`;
+        document.getElementById('needs-result').classList.add('active');
+    }
+    let totalCals = 0; let totalProt = 0;
+    function addFood() {
+        const foodKey = document.getElementById('food-select').value;
+        let amount = parseFloat(document.getElementById('food-amount').value);
+        if (!amount) return;
+        const food = foodDB[foodKey];
+        let cals = food.cal * amount;
+        let prot = food.pro * amount;
+        totalCals += cals; totalProt += prot;
+        const tbody = document.getElementById('food-list');
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${food.name}</td><td>${amount} ${food.unit}</td><td>${Math.round(cals)}</td><td>${Math.round(prot)}g</td>`;
+        tbody.appendChild(row);
+        document.getElementById('total-cals').innerText = Math.round(totalCals);
+        document.getElementById('total-prot').innerText = Math.round(totalProt) + 'g';
+        document.getElementById('food-amount').value = '1';
+    }
 
-            document.getElementById('cal-result').innerText = `${Math.round(finalCals)} kcal`;
-            document.getElementById('prot-result').innerText = `${protein}g minimum`;
-            document.getElementById('water-result').innerText = `${water} Liters`;
-            document.getElementById('needs-result').classList.add('active');
-        }
-
-        let totalCals = 0;
-        let totalProt = 0;
-        function addFood() {
-            const foodKey = document.getElementById('food-select').value;
-            let amount = parseFloat(document.getElementById('food-amount').value);
-            if (!amount) return;
-
-            const food = foodDB[foodKey];
-            let cals = food.cal * amount;
-            let prot = food.pro * amount;
-            totalCals += cals;
-            totalProt += prot;
-
-            const tbody = document.getElementById('food-list');
-            const row = document.createElement('tr');
-            row.innerHTML = `<td>${food.name}</td><td>${amount} ${food.unit}</td><td>${Math.round(cals)}</td><td>${Math.round(prot)}g</td>`;
-            tbody.appendChild(row);
-
-            document.getElementById('total-cals').innerText = Math.round(totalCals);
-            document.getElementById('total-prot').innerText = Math.round(totalProt) + 'g';
-            document.getElementById('food-amount').value = '1';
-        }
-
-        init();
-    </script>
+    init();
+</script>
 </body>
 </html>
